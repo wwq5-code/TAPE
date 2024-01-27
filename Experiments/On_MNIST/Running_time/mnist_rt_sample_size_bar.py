@@ -7,14 +7,14 @@ labels = ['1', '20', '40', '60', '80', '100']
 
 
 
-unl_muv_MNIST = [220.22, 118  , 116.632 , 153.850, 193.458, 222.83 ]
+unl_muv_MNIST = [141.4497, 116.9057  , 118.2206 , 119.850, 118.458, 116.92136]
 unl_mib_MNIST = [986.6597 , 1011.42  , 988.6431 , 988.9856858, 1002, 999]
 
-unl_muv_CIFAR = [220.22, 224  , 221.632 , 153.850, 193.458, 222.83 ]
+unl_muv_CIFAR = [133.75, 111.596  , 114.632 , 112.850, 109.458, 110.83 ]
 unl_mib_CIFAR = [986.6597 , 1011.42  , 988.6431 , 988.9856858, 1002, 999]
 
-unl_muv_CelebA = [37.612, 37.5137  ,32.11904, 37.4105, 37.3426, 37.1530 ]
-unl_mib_CelebA = [1232.582, 1131.4467 , 1225.5774, 1350.929, 1327.0406, 1505.699]
+unl_muv_CelebA = [32.3621, 23.749 , 21.41661, 22.37170, 21.5619, 23.5819]
+unl_mib_CelebA = [1232.582, 1131.4467 , 1225.5774, 1250.929, 1227.0406, 1205.699]
 
 
 
@@ -36,18 +36,18 @@ width = 0.9 # the width of the bars
 plt.style.use('seaborn')
 plt.figure()
 #plt.subplots(figsize=(8, 5.3))
-plt.bar(x - width /6 - width / 6 , unl_muv_MNIST, width=width/6, label='MUV MNIST', color='royalblue', edgecolor='black', hatch='/')
+plt.bar(x - width /6 - width / 6 , unl_muv_MNIST, width=width/6, label='UEV MNIST', color='#C6B3D3', edgecolor='black', hatch='/')
 
-plt.bar(x - width / 6 , unl_muv_CIFAR, width=width/6,  label='MUV CIFAR10', color='lime', edgecolor='black' , hatch='x')
-plt.bar(x , unl_muv_CelebA, width=width/6, label='MUV CelebA', color='orange', edgecolor='black', hatch='o')
-
-
-plt.bar(x + width / 6  , unl_mib_MNIST,   width=width/6, label='MIB MNIST', edgecolor='black', color='orangered', hatch='-')
-
-plt.bar(x + width / 6 + width/6 , unl_mib_CIFAR, width=width/6, label='MIB CIFAR10', color='olive', edgecolor='black', hatch='*')
+plt.bar(x - width / 6 , unl_muv_CIFAR, width=width/6,  label='UEV CIFAR10', color='#F7D58B', edgecolor='black' , hatch='x')
+plt.bar(x , unl_muv_CelebA, width=width/6, label='UEV CelebA', color='#80BA8A', edgecolor='black', hatch='o')
 
 
-plt.bar(x + width / 6 + width / 6 + width/6  , unl_mib_CelebA,   width=width/6, label='MIB CelebA', color='lightgray', edgecolor='black', hatch='\\')
+plt.bar(x + width / 6  , unl_mib_MNIST,   width=width/6, label='MIB MNIST', color='#9CD1C8', edgecolor='black',  hatch='-')
+
+plt.bar(x + width / 6 + width/6 , unl_mib_CIFAR, width=width/6, label='MIB CIFAR10', color='#6BB7CA', edgecolor='black', hatch='*')
+
+
+plt.bar(x + width / 6 + width / 6 + width/6  , unl_mib_CelebA,   width=width/6, label='MIB CelebA', color='#E58579', edgecolor='black', hatch='\\')
 # plt.bar(x - width / 8 - width / 16, unl_vib, width=0.168, label='PriMU$_{w}$', color='cornflowerblue', hatch='*')
 # plt.bar(x + width / 8, unl_self_r, width=0.168, label='PriMU$_{w/o}$', color='g', hatch='x')
 # plt.bar(x + width / 2 - width / 8 + width / 16, unl_hess_r, width=0.168, label='HBFU', color='orange', hatch='\\')

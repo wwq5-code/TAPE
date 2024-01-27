@@ -822,7 +822,8 @@ def add_trigger_new(add_backdoor, dataset, poison_samples, mode, args):
     new_data_re = []
 
     x, y = list_from_dataset_tuple[0]
-
+    total_cosine_simi = 0
+    count_idx = 0
     # total_poison_num = int(len(new_data) * portion/10)
     _, width, height = x.shape
 
@@ -838,8 +839,14 @@ def add_trigger_new(add_backdoor, dataset, poison_samples, mode, args):
             # plt.title("Image with Embedded Feature Map")
             # plt.axis('off')
             # plt.show()
-            temp = 1 - x[:, -5:-2, -5:-2]
-            x[:, -5:-2, -5:-2] = x[:, -5:-2, -5:-2] + temp * args.laplace_scale
+            img = x * 255
+            temp = 1 - x[:, -7:-2, -7:-2]
+            x[:, -7:-2, -7:-2] = x[:, -7:-2, -7:-2] + temp * args.laplace_scale
+
+            img2 = x * 255
+            cos_sim = cosine_similarity(img2.view(1,-1), img.view(1,-1))
+            total_cosine_simi += cos_sim.mean().item()
+            count_idx += 1
             # add trigger as general backdoor
             # x[:, width - 3, height - 3] = args.laplace_scale
             # x[:, width - 3, height - 4] = args.laplace_scale
@@ -865,6 +872,7 @@ def add_trigger_new(add_backdoor, dataset, poison_samples, mode, args):
         # plt.show()
 
     # print(len(new_data_re))
+    print("avg similarity", total_cosine_simi/count_idx)
     return Subset(list_from_dataset_tuple, indices)
 
 
@@ -904,7 +912,6 @@ class LinearModel(nn.Module):
         # 定义向前传播函数
         x = F.relu(self.fc1(x))
         return self.fc2(x)
-
 
 class Decoder(nn.Module):
     def __init__(self):
@@ -1199,8 +1206,117 @@ def vib_train(dataset, model, loss_fn, reconstruction_function, args, epoch, acc
         x, y = x.to(args.device), y.to(args.device)  # (B, C, H, W), (B, 10)
         # x = x.view(x.size(0), -1)
 
-        logits_z, logits_y, x_hat, mu, logvar, x_m, x_inverse_m = model(x,
-                                                                        mode='with_reconstruction')  # (B, C* h* w), (B, N, 10)
+        logits_z, logits_y, x_hat, mu, logvar, x_m, x_inverse_m = model(x, mode='with_reconstruction')  # (B, C* h* w), (B, N, 10)
+        # VAE two loss: KLD + MSE
+
+        H_p_q = loss_fn(logits_y, y)
+
+        KLD_element = mu.pow(2).add_(logvar.exp()).mul_(-1).add_(1).add_(logvar).cuda()
+        KLD = torch.sum(KLD_element).mul_(-0.5).cuda()
+        KLD_mean = torch.mean(KLD_element).mul_(-0.5).cuda()
+
+        x_hat = x_hat.view(x_hat.size(0), -1)
+        x = x.view(x.size(0), -1)
+        x_inverse_m = x_inverse_m.view(x_inverse_m.size(0),-1)
+        # x = torch.sigmoid(torch.relu(x))
+        BCE = reconstruction_function(x_hat, x)  # mse loss for vae # torch.mean((x_hat - x) ** 2 * (x_inverse_m > 0).int()) / 0.75 # reconstruction_function(x_hat, x_inverse_m)  # mse loss for vae
+
+        # Calculate the L2-norm
+        l2_norm_bce = torch.norm(args.beta * KLD_mean + args.mse_rate * BCE, p=2)
+
+        l2_norm_hpq = torch.norm(args.beta * KLD_mean + H_p_q, p=2)
+
+        total_u_s = l2_norm_bce + l2_norm_hpq
+        bce_rate = l2_norm_bce / total_u_s
+        hpq_rate = l2_norm_hpq / total_u_s
+
+        '''purpose is to make the unlearning item =0, and the learning item =0 '''
+
+        if train_type == 'FIXED':
+            loss = args.beta * KLD_mean + args.mse_rate * BCE + H_p_q
+        elif train_type == 'MULTI':
+            loss = (args.beta * KLD_mean + args.mse_rate * BCE) * bce_rate + hpq_rate * (args.beta * KLD_mean + H_p_q)
+
+        # loss = args.beta * KLD_mean + BCE  # / (args.batch_size * 28 * 28)
+
+        optimizer.zero_grad()
+        loss.backward()
+
+        # torch.nn.utils.clip_grad_norm_(model.parameters(), 5, norm_type=2.0, error_if_nonfinite=False)
+        optimizer.step()
+
+        # acc = (logits_y.argmax(dim=1) == y).float().mean().item()
+        sigma = torch.sqrt_(torch.exp(logvar)).mean().item()
+        # JS_p_q = 1 - js_div(logits_y.softmax(dim=1), y.softmax(dim=1)).mean().item()
+        metrics = {
+            # 'acc': acc,
+            'loss': loss.item(),
+            'BCE': BCE.item(),
+            'H(p,q)': H_p_q.item(),
+            # '1-JS(p,q)': JS_p_q,
+            'mu': torch.mean(mu).item(),
+            'sigma': sigma,
+            'KLD': KLD.item(),
+            'KLD_mean': KLD_mean.item(),
+        }
+        # if epoch == args.num_epochs - 1:
+        #     mu_list.append(torch.mean(mu).item())
+        #     sigma_list.append(sigma)
+        if step % len(train_loader) % 10000 == 0:
+            print(f'[{epoch}/{0 + args.num_epochs}:{step % len(train_loader):3d}] '
+                  + ', '.join([f'{k} {v:.3f}' for k, v in metrics.items()]))
+            x_cpu = x.cpu().data
+            x_cpu = x_cpu.clamp(0, 1)
+            x_cpu = x_cpu.view(x_cpu.size(0), 1, 28, 28)
+            grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+            # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
+            # plt.show()
+
+            x_hat_cpu = x_hat.cpu().data
+            x_hat_cpu = x_hat_cpu.clamp(0, 1)
+            x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 1, 28, 28)
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
+            # plt.show()
+
+    # for step, (x, y) in enumerate(dataloader_er_clean):
+    #     x, y = x.to(args.device), y.to(args.device)  # (B, C, H, W), (B, 10)
+    #     # x = x.view(x.size(0), -1)
+    #
+    #     logits_z, logits_y, x_hat, mu, logvar, x_m, x_inverse_m = model(x, mode='with_reconstruction')  # (B, C* h* w), (B, N, 10)
+    #     H_p_q = loss_fn(logits_y, y)
+    #
+    #     # acc_list.append(H_p_q.item())
+    #
+    #     x_hat = x_hat.view(x_hat.size(0), -1)
+    #     x = x.view(x.size(0), -1)
+    #     x_inverse_m = x_inverse_m.view(x_inverse_m.size(0),-1)
+    #     BCE = reconstruction_function(x_hat, x)  # mse loss for vae
+    #
+    # for step, (x, y) in enumerate(dataloader_er_with_trigger):
+    #     x, y = x.to(args.device), y.to(args.device)  # (B, C, H, W), (B, 10)
+    #     # x = x.view(x.size(0), -1)
+    #
+    #     logits_z, logits_y, x_hat, mu, logvar, x_m, x_inverse_m = model(x, mode='with_reconstruction')  # (B, C* h* w), (B, N, 10)
+    #     H_p_q = loss_fn(logits_y, y)
+    #
+    #     x_hat = x_hat.view(x_hat.size(0), -1)
+    #     x = x.view(x.size(0), -1)
+    #     x_inverse_m = x_inverse_m.view(x_inverse_m.size(0),-1)
+    #     BCE = reconstruction_function(x_hat, x)  # mse loss for va
+    #
+    #     # mse_list.append(BCE.item())
+
+    return model, acc_list, mse_list
+
+def continue_vib_train(dataset, model, loss_fn, reconstruction_function, args, epoch, acc_list, mse_list, train_loader, train_type, dataloader_er_clean, dataloader_er_with_trigger):
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+
+    for step, (x, y) in enumerate(dataset):
+        x, y = x.to(args.device), y.to(args.device)  # (B, C, H, W), (B, 10)
+        # x = x.view(x.size(0), -1)
+
+        logits_z, logits_y, x_hat, mu, logvar, x_m, x_inverse_m = model(x, mode='with_reconstruction')  # (B, C* h* w), (B, N, 10)
         # VAE two loss: KLD + MSE
 
         H_p_q = loss_fn(logits_y, y)
@@ -1420,7 +1536,6 @@ def test_linear_acc(model, data_loader, args, name='test', epoch=999):
     print(f'epoch {epoch}, {name} accuracy:  {acc:.4f}')
     return acc
 
-
 @torch.no_grad()
 def infer_linear_from_vib_acc(model, vib, data_loader, args, name='test', epoch=999):
     num_total = 0
@@ -1439,7 +1554,6 @@ def infer_linear_from_vib_acc(model, vib, data_loader, args, name='test', epoch=
     acc = round(acc, 5)
     print(f'epoch {epoch}, {name} accuracy:  {acc:.4f}')
     return acc
-
 
 @torch.no_grad()
 def eva_vae_generation(vib, classifier_model, dataloader_erase, args, name='test', epoch=999):
@@ -1604,8 +1718,7 @@ def unlearning_vae(vib, args, dataloader_erase, dataloader_remain, reconstructio
             if train_type == 'VAE_unl':
                 loss = args.kld_to_org * KLD_mean - args.unlearn_bce * BCE
             elif train_type == 'VAE_unl_ss':
-                loss = (
-                                   args.kld_to_org * KLD_mean - args.unlearn_bce * BCE) * unl_rate + self_s_rate * args.self_sharing_rate * (
+                loss = (args.kld_to_org * KLD_mean - args.unlearn_bce * BCE) * unl_rate + self_s_rate * args.self_sharing_rate * (
                                args.beta * KLD_mean2 + BCE2)  # args.beta * KLD_mean - H_p_q + args.beta * KLD_mean2  + H_p_q2 #- log_z / e_log_py #-   # H_p_q + args.beta * KLD_mean2
 
             optimizer_unl.zero_grad()
@@ -1782,8 +1895,16 @@ def get_grad_dataset(model, dataset_loader, dataset_loader2, erasing_size):
                 t_grad = param.grad.view(1, -1)
                 n, m = t_grad.size()
                 B, C, H, W  = image.size()
-                random_tensor = torch.rand(B)
-                scaled_random_tensor = random_tensor / random_tensor.sum() * B
+
+                mean = 1  # Mean of the distribution
+                std_dev = 0.4  # Standard deviation of the distribution
+
+                # Generate Gaussian noise
+                random_tensor = torch.randn(B, dim_z) * std_dev + mean
+                random_tensor = random_tensor.cuda()
+                # random_tensor = torch.rand(B, dim_z).cuda()
+                scaled_random_tensor = random_tensor / random_tensor.sum() * B * dim_z
+
                 for scale_v in scaled_random_tensor:
                     mean_t_grad = t_grad.mean()
                     std_t_grad = t_grad.std()
@@ -1931,7 +2052,7 @@ args.lr = 0.0001
 args.dimZ = 128  # 40 #2
 args.batch_size = 16
 args.erased_local_r = 0.05  # the erased data ratio
-args.unl_samples_size = 20
+args.unl_samples_size = 1
 args.train_type = "MULTI"
 args.kld_to_org = 1
 args.unlearn_bce = 0.3
@@ -1969,8 +2090,8 @@ elif args.dataset == 'CIFAR100':
     ])  # T.Normalize((0.4914, 0.4822, 0.4465), (0.2464, 0.2428, 0.2608)),                                 T.RandomHorizontalFlip(),
     test_transform = T.Compose([T.ToTensor(),
                                 ])  # T.Normalize((0.4914, 0.4822, 0.4465), (0.2464, 0.2428, 0.2608))
-    train_set = CIFAR100('data/cifar', train=True, transform=train_transform, download=True)
-    test_set = CIFAR100('data/cifar', train=False, transform=test_transform, download=True)
+    train_set = CIFAR100('../data/cifar', train=True,  transform=train_transform, download=True)
+    test_set = CIFAR100('../data/cifar', train=False, transform=test_transform, download=True)
 elif args.dataset == 'CelebA':
     train_transform = T.Compose([T.Resize((32, 32)),
                                  T.ToTensor(),
@@ -2191,7 +2312,7 @@ for epoch in range(args.num_epochs):
     ''' here, we just need to train based on the remaining dataset first, and then prepare the different dataset, normal data similar to the remaining dataset, 
     subset sampled from the remaining dataset, and backdoored samples different from the training dataset '''
 
-    vib_full_trained, clean_acc_list, mse_list = vib_train(dataloader_er, vib_full_trained, loss_fn,
+    vib_full_trained, clean_acc_list, mse_list = continue_vib_train(dataloader_er, vib_full_trained, loss_fn,
                                                            reconstruction_function, args, epoch, clean_acc_list,
                                                            mse_list, train_loader, train_type, dataloader_er_clean,
                                                            dataloader_er_with_trigger)

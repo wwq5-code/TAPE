@@ -16,9 +16,9 @@ labels = ['0', '0.2', '0.4', '0.6', '0.8', '1' ]
 # unl_org = [97.77, 97.55, 97.35, 97.29, 97.21, 97.21]
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_mib = [0.972917, 0.972998, 0.97310, 0.9730, 0.973318, 0.9735116]
+unl_mib = [0.972457, 0.97284, 0.973214, 0.97368, 0.974661, 0.975451]
 
-unl_muv = [0.96638, 0.96662, 0.96683, 0.967560, 0.968816, 0.96710]
+unl_muv = [0.96764, 0.9684, 0.9689, 0.969455, 0.96973, 0.97118]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 # for i in range(len(x)):
 #     unl_mib[i] = unl_mib[i]*10
@@ -32,12 +32,12 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_mib, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
          label='Single-Sample', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
-         label='Multi-Sample ',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
+         label='Multi-Sample',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
 #          label='VBU', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)

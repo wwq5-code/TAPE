@@ -20,9 +20,9 @@ unl_mib_bck = [0, 0.7, 0.7, 0.7, 0.7, 1]
 
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_muv_includes = [0.3473, 0.2418, 0.3576, 0.1445, 0.2152,  0.1445]
+unl_muv_includes = [0.0981, 0.0894, 0.0687, 0.0891, 0.0676,  0.0912]
 
-unl_muv = [0.9191, 0.8852, 0.9180,  0.8053, 0.8709, 0.8012]
+unl_muv = [0.9314, 0.9262, 0.9191,  0.9129, 0.9047, 0.9232]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 
@@ -35,18 +35,19 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv_includes, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
          label='Includes', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
          label='Not Includes',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
+
 # plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
-#          label='MIB(bac. not in)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
+#          label='MIB (bac.)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
-plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
          label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 

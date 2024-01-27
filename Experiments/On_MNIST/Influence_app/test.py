@@ -1,20 +1,22 @@
+import torch
+
+# Parameters for the Gaussian noise
+mean = 0        # Mean of the distribution
+std_dev = 1     # Standard deviation of the distribution
+num_samples = 1000  # Number of samples
+
+# Generate Gaussian noise
+# torch.randn generates samples from a standard normal distribution (mean=0, std_dev=1)
+noise = torch.randn(num_samples) * std_dev + mean
+
+# Converting the tensor to a numpy array for plotting (if needed)
+noise_np = noise.numpy()
+
+# Example: Plotting the noise (if you want to visualize it)
 import matplotlib.pyplot as plt
 
-# Example data
-categories = ['LR', 'DT', 'RF', 'MLP']
-values = [0.45, 0.35, 0.1, 0.05]
-
-# Create a bar plot
-plt.bar(categories, values, color=['blue', 'green', 'red', 'purple'], hatch='/', edgecolor='black')
-
-# Set the background of the axes to grey
-plt.gca().set_facecolor('grey')
-
-# Set the grid with white color, a specific linestyle, and linewidth
-plt.grid(color='white', linestyle='-', linewidth=0.5)
-
-# Set the y-axis limit to make the grid lines extend across the plot area
-plt.ylim(0, 0.5)
-
-# Show the plot
+plt.hist(noise_np, bins=30, density=True)
+plt.title("Histogram of Generated Gaussian Noise")
+plt.xlabel("Noise Value")
+plt.ylabel("Frequency")
 plt.show()

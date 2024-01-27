@@ -1,9 +1,9 @@
-# MUV
+# UEV
 
-# Machine Unlearning Verification (MUV)
+# Machine Unlearning Effect Verification (UEV)
 
 ## Overview
-This repository is the official implementation of MUV, and the corresponding paper is under review.
+This repository is the official implementation of UEV, and the corresponding paper is under review.
 
 
 ## Prerequisites
@@ -19,12 +19,12 @@ numpy==1.23.5
 We also show the requirements packages in requirements.txt
 
 
-1. To run the MUV on MNIST, we can run
+1. To run the UEV on MNIST, we can run
 ```
 python /MUV_Reconstruciton/On_MNIST/Our_method/MUV_on_MNIST_unl_multi.py
 ```
 
-2. To run the MUV on CIFAR10, we can run
+2. To run the UEV on CIFAR10, we can run
 
 ```
 python /MUV_Reconstruciton/On_CIFAR10/Our_method/MUV_on_CIFAR10_unl_multi.py

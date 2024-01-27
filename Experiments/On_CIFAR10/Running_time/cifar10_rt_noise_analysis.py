@@ -15,18 +15,20 @@ x=[1, 2, 3, 4, 5, 6]
 labels = ['0', '0.2', '0.4', '0.6', '0.8', '1']
 # unl_org = [97.77, 97.55, 97.35, 97.29, 97.21, 97.21]
 
-unl_mib = [0, 0, 0, 0, 0, 0]
-unl_mib_bck = [888.985, 862.987992, 854.82028, 886.6597, 888.985, 888.985]
+unl_mib_ss = [0, 0, 0, 0, 0, 0]
+unl_mib_ms = [888.985 - 230, 862.987992- 230, 854.82028- 230, 886.6597- 230, 888.985- 230, 888.985- 230]
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_muv_includes = [220.22, 220.52, 221.997, 191.033, 191.977498, 220.22]
+unl_muv = [137.22, 136.52, 136.997, 138.033, 137.977498, 137.22]
 
-unl_muv = [210.396, 208.9115, 216.9054, 210.4070, 209.0134, 208.0134] #[191.235, 191.2713, 193.1833, 190.910802, 191.14087, 224]
+unl_muv_ms = [110.396, 114.9115, 113.9054, 112.4070, 111.0134, 111.0134] #[191.235, 191.2713, 193.1833, 190.910802, 191.14087, 224]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 for i in range(len(x)):
-    unl_mib_bck[i] = unl_mib_bck[i]/1000
+    unl_mib_ss[i] = unl_mib_ss[i]/1000
+    unl_mib_ms[i] = unl_mib_ms[i]/1000
     unl_muv[i] = unl_muv[i] / 1000
+    unl_muv_ms[i] = unl_muv_ms[i]/1000
 
 plt.style.use('seaborn')
 plt.figure(figsize=(5.5, 5.3))
@@ -39,17 +41,24 @@ markevery=1
 # plt.plot(x, unl_muv_includes, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
 #          label='MUV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
+plt.plot(x, unl_muv, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
+         label='UEV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
-         label='MUV',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_muv_ms, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
+         label='UEV (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
 #          label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
-plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
-         label='MIB', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
+# plt.plot(x, unl_mib_ss, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
+#          label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+
+
+plt.plot(x, unl_mib_ms, linestyle=':', color='#E07B54',  marker='^', fillstyle='full', markevery=markevery,
+         label='MIB (MS-B)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
 

@@ -19,9 +19,9 @@ unl_mib_bck = [0, 0.5, 0.5, 1, 1, 1]
 
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_muv_includes = [0.2176, 0.4176, 0.8636, 0.8948, 0.8944, 0.9060]
+unl_muv_includes = [0.0, 0.8196, 0.9236, 0.9528, 0.9412, 0.9564]
 
-unl_muv = [0.189025, 0.336832, 0.9072, 0.9356, 0.9532, 0.9464]
+unl_muv = [0.0, 0.7788, 0.8804, 0.9276, 0.9288, 0.9468]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 plt.style.use('seaborn')
@@ -32,18 +32,18 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv_includes, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
-         label='MUV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
+         label='UEV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
-         label='MUV (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
+         label='UEV (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
-plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
          label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
-plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib_bck, linestyle=':', color='#E07B54',  marker='^', fillstyle='full', markevery=markevery,
          label='MIB (MS-B)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 

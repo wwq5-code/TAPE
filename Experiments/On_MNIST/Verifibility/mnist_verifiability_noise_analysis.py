@@ -19,9 +19,9 @@ unl_mib = [0, 0, 0, 0, 0, 0]
 unl_mib_bck = [0, 1, 1, 1, 1, 1]
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_muv_includes = [0.8647, 0.9203, 0.9970, 0.9947, 0.9967, 0.9963]
+unl_muv_includes = [0.9247, 0.9747, 0.9973, 0.9963, 0.9987, 0.9933]
 
-unl_muv = [0.3547, 0.3930, 0.5947, 0.6530, 0.7867, 0.8770]
+unl_muv = [0.5823, 0.6520, 0.7057, 0.9217, 0.9693, 0.9583]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 plt.style.use('seaborn')
@@ -33,20 +33,19 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv_includes, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
-         label='MUV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
+         label='UEV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
-         label='MUV (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
+         label='UEV (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
-plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
          label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
-plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib_bck, linestyle=':', color='#E07B54',  marker='^', fillstyle='full', markevery=markevery,
          label='MIB (MS-B)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
-
 
 
 

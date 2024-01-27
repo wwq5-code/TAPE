@@ -18,9 +18,9 @@ labels = ['1', '20', '40', '60', '80', '100' ]
 unl_mib = [0, 0, 0, 0, 0, 0]
 unl_mib_bck = [0, 0, 0, 1, 1, 1]
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_muv_includes = [0.1513, 0.0010, 0.0233, 0.0000, 0.0140, 0.0073]
+unl_muv_includes = [0.3100, 0.2073, 0.15, 0.0600, 0.0320, 0.0000]
 
-unl_muv = [0.9963, 0.8770, 0.8050, 0.6703, 0.7653, 0.7050]
+unl_muv = [0.9933, 0.9583, 0.9083, 0.8550, 0.8700, 0.8410]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 
@@ -32,18 +32,19 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv_includes, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
          label='Includes', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
          label='Not Includes',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+
 
 # plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
 #          label='MIB (bac.)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
-plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
          label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
@@ -72,7 +73,7 @@ plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
 
 
 # plt.title('(c) Utility Preservation', fontsize=24)
-plt.legend(loc=(0.01,0.25),fontsize=20)
+plt.legend(loc=(0.01,0.35),fontsize=20)
 plt.tight_layout()
 #plt.title("MNIST")
 plt.rcParams['figure.figsize'] = (2.0, 1)

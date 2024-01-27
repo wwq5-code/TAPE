@@ -18,9 +18,9 @@ labels = ['1', '20', '40', '60', '80', '100' ]
 # unl_org = [97.77, 97.55, 97.35, 97.29, 97.21, 97.21]
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-unl_mib = [0.0887, 0.061598, 0.059158, 0.05836, 0.05854, 0.058507]
+unl_mib = [0.0670, 0.05614, 0.05513, 0.054879, 0.05501, 0.054093]
 
-unl_muv = [0.19421, 0.17042, 0.16694, 0.1650564, 0.168841, 0.165504]
+unl_muv = [0.4278, 0.4113, 0.41067, 0.410123, 0.409559, 0.4098]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 for i in range(len(x)):
@@ -35,11 +35,11 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_mib, linestyle='-', color='b', marker='o', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
          label='Includes', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
-plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
+plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
          label='Not Includes',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
@@ -62,7 +62,7 @@ plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', m
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 plt.ylabel('Average UE' ,fontsize=24)
-my_y_ticks = np.arange(0, 2.2, 0.4)
+my_y_ticks = np.arange(0, 5.2, 1)
 plt.yticks(my_y_ticks,fontsize=20)
 # plt.yscale('log')
 
@@ -80,7 +80,10 @@ plt.xticks(x, labels, fontsize=20)
 plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
              textcoords='offset points', ha='right', va='center', fontsize=15)
 
-plt.title('On MNIST', fontsize=24)
+plt.title('On MNIST', fontsize=24 )
+
+# plt.text(-0.1, 0.5, 'Title Beside Y', transform=ax[0].transAxes,
+#            va='center', ha='left', rotation='vertical')
 plt.legend(loc='best',fontsize=20)
 plt.tight_layout()
 #plt.title("MNIST")
