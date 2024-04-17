@@ -1,6 +1,6 @@
 # UEV
 
-# Machine Unlearning Effect Verification (UEV)
+# Machine Unlearning Effect Verification (UEV) via Pre-trained Erased Data Reconstruction (PEDR)
 
 ## Overview
 This repository is the official implementation of UEV, and the corresponding paper is under review.

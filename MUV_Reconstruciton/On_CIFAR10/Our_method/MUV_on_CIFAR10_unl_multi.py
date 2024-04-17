@@ -284,7 +284,7 @@ class PoisonedDataset(Dataset):
                 # x_cpu = x.cpu().data
                 # x_cpu = x_cpu.clamp(0, 1)
                 # x_cpu = x_cpu.view(1, 1, 28, 28)
-                # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+                # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
                 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
                 # plt.show()
 
@@ -524,7 +524,7 @@ def add_trigger(add_backdoor, data, targets, poison_samples, mode, feature_extra
         # x_cpu = x.cpu().data
         # x_cpu = x_cpu.clamp(0, 1)
         # x_cpu = x_cpu.view(1, 1, 28, 28)
-        # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+        # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
@@ -624,7 +624,7 @@ def add_trigger_new(add_backdoor, dataset, poison_samples, mode, args):
         # x_cpu = x.cpu().data
         # x_cpu = x_cpu.clamp(0, 1)
         # x_cpu = x_cpu.view(1, 1, 28, 28)
-        # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+        # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
@@ -1035,14 +1035,14 @@ def vib_train(dataset, model, loss_fn, reconstruction_function, args, epoch, acc
             x_cpu = x.cpu().data
             x_cpu = x_cpu.clamp(0, 1)
             x_cpu = x_cpu.view(x_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1145,14 +1145,14 @@ def continue_vib_train(dataset, model, loss_fn, reconstruction_function, args, e
             x_cpu = x.cpu().data
             x_cpu = x_cpu.clamp(0, 1)
             x_cpu = x_cpu.view(x_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1226,7 +1226,7 @@ def create_backdoor_train_dataset(dataname, train_data, base_label, trigger_labe
     elif args.dataset == "CIFAR10":
         x = x.view(1, 3, 32, 32)
     print(x)
-    grid = torchvision.utils.make_grid(x, nrow=1, cmap="gray")
+    grid = torchvision.utils.make_grid(x, nrow=1 )
     plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
     plt.show()
     return train_data.data, train_data.targets
@@ -1237,7 +1237,7 @@ def create_backdoor_train_dataset(dataname, train_data, base_label, trigger_labe
                 # x_cpu = x.cpu().data
                 # x_cpu = x_cpu.clamp(0, 1)
                 # x_cpu = x_cpu.view(1, 3, 32, 32)
-                # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+                # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
                 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
                 # plt.show()
 """
@@ -1342,7 +1342,7 @@ def eva_vae_generation(vib, classifier_model, dataloader_erase, args, name='test
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 1, 28, 28)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1706,7 +1706,7 @@ def infer_in_or_not(vib_full_trained, reconstructor_bac, classifier_model, er_wi
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1739,7 +1739,7 @@ args.num_epochs_recon = 50
 args.dataset = 'CIFAR10'
 args.add_noise = False
 args.beta = 0.0001
-args.mse_rate = 10
+args.mse_rate = 0 # 10
 args.lr = 0.0005
 args.dimZ = 128  # 40 #2
 args.batch_size = 16
@@ -1862,7 +1862,7 @@ elif args.dataset == "CIFAR10":
 elif args.dataset == "CelebA":
     x = x.view(1, 3, 32, 32)
 print(x)
-grid = torchvision.utils.make_grid(x, nrow=1, cmap="gray")
+grid = torchvision.utils.make_grid(x, nrow=1 )
 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
 # plt.show()
 
@@ -2221,14 +2221,14 @@ for batch_idx, (x, y) in enumerate(dataloader_erased_with_trigger):
         x_cpu = x.cpu().data
         x_cpu = x_cpu.clamp(0, 1)
         x_cpu = x_cpu.view(x_cpu.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x_cpu, nrow=4 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
         x_hat_cpu = x_hat.cpu().data
         x_hat_cpu = x_hat_cpu.clamp(0, 1)
         x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
@@ -2257,7 +2257,7 @@ with torch.no_grad():  # No need to track gradients
             x = x.view(x.size(0), 1, 28, 28)
         elif args.dataset == "CIFAR10":
             x = x.view(x.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x, nrow=4 )
         plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         plt.show()
         
@@ -2267,7 +2267,7 @@ with torch.no_grad():  # No need to track gradients
             x = x.view(x.size(0), 1, 28, 28)
         elif args.dataset == "CIFAR10":
             x = x.view(x.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x, nrow=4 )
         plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         plt.show()  
         break

@@ -35,18 +35,18 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='UEV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='PEDR (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='UEV (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='PEDR (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MIB (B-SS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 plt.plot(x, unl_mib_bck, linestyle=':', color='#E07B54',  marker='^', fillstyle='full', markevery=markevery,
-         label='MIB (MS-B)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
+         label='MIB (B-MS)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
 

@@ -457,14 +457,14 @@ width = 0.7  # the width of the bars
 
 #plt.subplots(figsize=(8, 5.3))
 #plt.bar(x - width / 2 - width / 8 + width / 8, unl_fr, width=0.168, label='Retrain', color='dodgerblue', hatch='/')
-ax[2,0].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='UEV SS In', color='#9BC985', edgecolor='black', hatch='/')
-ax[2,0].bar(x - width / 6,  unl_ss_not_in, width=width/6, label='UEV SS Not In', color='#F7D58B', edgecolor='black', hatch='*')
-ax[2,0].bar(x  , unl_ms_in, width=width/6, label='UEV MS In', color='#B595BF',edgecolor='black', hatch='\\')
-ax[2,0].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='UEV MS Not In', color='#797BB7', edgecolor='black', hatch='x')
-ax[2,0].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB MS In', color='#9CD1C8', edgecolor='black', hatch='o')
+ax[2,0].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='PEDR SS In', color='#9BC985', edgecolor='black', hatch='/')
+ax[2,0].bar(x - width / 6,  unl_ss_not_in, width=width/6, label='PEDR SS Not In', color='#F7D58B', edgecolor='black', hatch='*')
+ax[2,0].bar(x  , unl_ms_in, width=width/6, label='PEDR MS In', color='#B595BF',edgecolor='black', hatch='\\')
+ax[2,0].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='PEDR MS Not In', color='#797BB7', edgecolor='black', hatch='x')
+ax[2,0].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB B-MS In', color='#9CD1C8', edgecolor='black', hatch='o')
 
 
-ax[2,0].bar(x + width / 6 + width / 6 + width/6  , mib_ms_not_in,   width=width/6, label='MIB MS Not In', color='#E58579', edgecolor='black', hatch='\\')
+ax[2,0].bar(x + width / 6 + width / 6 + width/6  , mib_ms_not_in,   width=width/6, label='MIB B-MS Not In', color='#E58579', edgecolor='black', hatch='\\')
 
 
 
@@ -526,10 +526,10 @@ ax[2,1].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='SS In
 ax[2,1].bar(x - width / 6,  unl_ss_not_in, width=width/6, label='SS Not In', color='#F7D58B', edgecolor='black', hatch='*')
 ax[2,1].bar(x  , unl_ms_in, width=width/6, label='MS In', color='#B595BF',edgecolor='black', hatch='\\')
 ax[2,1].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='MS Not In', color='#797BB7', edgecolor='black', hatch='x')
-ax[2,1].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB MS In', color='#9CD1C8', edgecolor='black', hatch='o')
+ax[2,1].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB B-MS In', color='#9CD1C8', edgecolor='black', hatch='o')
 
 
-ax[2,1].bar(x + width / 6 + width / 6 + width/6  , mib_ms_not_in,   width=width/6, label='MIB MS Not In', color='#E58579', edgecolor='black', hatch='\\')
+ax[2,1].bar(x + width / 6 + width / 6 + width/6  , mib_ms_not_in,   width=width/6, label='MIB B-MS Not In', color='#E58579', edgecolor='black', hatch='\\')
 
 
 # plt.bar(x - width /6 - width / 6 , unl_muv_MNIST, width=width/6, label='MUV MNIST', color='#C6B3D3', edgecolor='black', hatch='/')
@@ -599,10 +599,10 @@ ax[2,2].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='SS In
 ax[2,2].bar(x - width / 6,  unl_ss_not_in, width=width/6, label='SS Not In', color='#F7D58B', edgecolor='black', hatch='*')
 ax[2,2].bar(x  , unl_ms_in, width=width/6, label='MS In', color='#B595BF',edgecolor='black', hatch='\\')
 ax[2,2].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='MS Not In', color='#797BB7', edgecolor='black', hatch='x')
-ax[2,2].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB MS In', color='#9CD1C8', edgecolor='black', hatch='o')
+ax[2,2].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB B-MS In', color='#9CD1C8', edgecolor='black', hatch='o')
 
 
-ax[2,2].bar(x + width / 6 + width / 6 + width/6  , mib_ms_not_in,   width=width/6, label='MIB MS Not In', color='#E58579', edgecolor='black', hatch='\\')
+ax[2,2].bar(x + width / 6 + width / 6 + width/6  , mib_ms_not_in,   width=width/6, label='MIB B-MS Not In', color='#E58579', edgecolor='black', hatch='\\')
 
 
 

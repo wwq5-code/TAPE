@@ -36,10 +36,10 @@ width = 0.9 # the width of the bars
 plt.style.use('seaborn')
 plt.figure()
 #plt.subplots(figsize=(8, 5.3))
-plt.bar(x - width /6 - width / 6 , unl_muv_MNIST, width=width/6, label='UEV MNIST', color='#C6B3D3', edgecolor='black', hatch='/')
+plt.bar(x - width /6 - width / 6 , unl_muv_MNIST, width=width/6, label='PEDR MNIST', color='#C6B3D3', edgecolor='black', hatch='/')
 
-plt.bar(x - width / 6 , unl_muv_CIFAR, width=width/6,  label='UEV CIFAR10', color='#F7D58B', edgecolor='black' , hatch='x')
-plt.bar(x , unl_muv_CelebA, width=width/6, label='UEV CelebA', color='#80BA8A', edgecolor='black', hatch='o')
+plt.bar(x - width / 6 , unl_muv_CIFAR, width=width/6,  label='PEDR CIFAR10', color='#F7D58B', edgecolor='black' , hatch='x')
+plt.bar(x , unl_muv_CelebA, width=width/6, label='PEDR CelebA', color='#80BA8A', edgecolor='black', hatch='o')
 
 
 plt.bar(x + width / 6  , unl_mib_MNIST,   width=width/6, label='MIB MNIST', color='#9CD1C8', edgecolor='black',  hatch='-')
