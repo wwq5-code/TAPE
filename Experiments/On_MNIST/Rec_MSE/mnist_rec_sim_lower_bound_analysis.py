@@ -30,11 +30,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='SS In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD In (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='SS Not In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD Not In (SS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_multi_lower_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
 #          label='MS In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
@@ -57,15 +57,14 @@ plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='fu
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 plt.ylabel('Rec. Similarity' ,fontsize=24)
-my_y_ticks = np.arange(0., 1.3, 0.2)
+my_y_ticks = np.arange(0.2, 1.21, 0.2)
 plt.yticks(my_y_ticks,fontsize=20)
 plt.xlabel('Task Weight $\\alpha$' ,fontsize=20)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10), textcoords='offset points', ha='right', va='center', fontsize=15)
 
 
 # plt.title('(c) Utility Preservation', fontsize=24)

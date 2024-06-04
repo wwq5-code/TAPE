@@ -25,10 +25,10 @@ unl_muv = [143, 220.52 - 77, 221.997 - 77, 211.033 - 77, 201.977498 - 77, 220.22
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 for i in range(len(x)):
-    unl_mib_ss[i] = unl_mib_ss[i]/1000
-    unl_mib_ms[i] = unl_mib_ms[i]/1000
-    unl_muv[i] = unl_muv[i] / 1000
-    unl_muv_ms[i] = unl_muv_ms[i]/1000
+    unl_mib_ss[i] = unl_mib_ss[i]
+    unl_mib_ms[i] = unl_mib_ms[i]
+    unl_muv[i] = unl_muv[i]
+    unl_muv_ms[i] = unl_muv_ms[i]
 
 plt.style.use('seaborn')
 plt.figure(figsize=(5.5, 5.3))
@@ -44,11 +44,11 @@ markevery=1
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 
 plt.plot(x, unl_muv, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='PEDR (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv_ms, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='PEDR (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
 #          label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
@@ -77,15 +77,14 @@ plt.plot(x, unl_mib_ms, linestyle=':', color='#E07B54',  marker='^', fillstyle='
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 plt.ylabel('Running Time' ,fontsize=24)
-my_y_ticks = np.arange(0, 1.1, 0.2)
+my_y_ticks = np.arange(0, 1100, 200)
 plt.yticks(my_y_ticks,fontsize=20)
 plt.xlabel('Noise Ratio' ,fontsize=20)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e3", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e3", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),textcoords='offset points', ha='right', va='center', fontsize=15)
 
 
 # plt.title('(c) Utility Preservation', fontsize=24)

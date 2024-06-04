@@ -21,12 +21,12 @@ fig.subplots_adjust(bottom=0.16)
 labels = ['SISA', 'VBU', 'RFU', 'HBU']
 #unl_fr = [10*10*0.22 *5, 10*10*0.22*5, 10*10*0.22 *5, 10*10*0.22*5 , 10*10*0.22*5  , 10*10*0.22*5  ]
 
-unl_ss_in = [0.06707 , 0.081104, 0.053582 , 0.06221 ]
-unl_ss_not_in = [0.08786   , 0.08207   , 0.054442     , 0.06333]
+unl_ss_in = [0.06707,  0.081104 , 0.053582  , 0.06221  ]
+unl_ss_not_in = [0.4278   , 0.08207  , 0.054442   , 0.06333 ]
 
 
-unl_ms_in = [0.056284  , 0.081127   , 0.05411 , 0.052979]
-unl_ms_not_in = [0.08192  , 0.08203 , 0.054857 , 0.0546136]
+unl_ms_in = [0.056284  , 0.081127   , 0.05411 , 0.052979 ]
+unl_ms_not_in = [0.4179  , 0.08203  , 0.054857  , 0.0546136 ]
 
 
 sisa_unl = [0.0887, 0.19421, 0.061598 , 0.170428]
@@ -66,7 +66,7 @@ ax[0,0].set_xticks(x)
 ax[0,0].set_xticklabels(labels ,fontsize=13)
 # ax.set_xticklabels(labels,fontsize=15)
 
-my_y_ticks = np.arange(0, 0.13, 0.02)
+my_y_ticks = np.arange(0, 0.6, 0.08)
 ax[0,0].set_yticks(my_y_ticks )
 # ax.set_yticklabels(my_y_ticks,fontsize=15)
 
@@ -457,10 +457,10 @@ width = 0.7  # the width of the bars
 
 #plt.subplots(figsize=(8, 5.3))
 #plt.bar(x - width / 2 - width / 8 + width / 8, unl_fr, width=0.168, label='Retrain', color='dodgerblue', hatch='/')
-ax[2,0].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='PEDR SS In', color='#9BC985', edgecolor='black', hatch='/')
-ax[2,0].bar(x - width / 6,  unl_ss_not_in, width=width/6, label='PEDR SS Not In', color='#F7D58B', edgecolor='black', hatch='*')
-ax[2,0].bar(x  , unl_ms_in, width=width/6, label='PEDR MS In', color='#B595BF',edgecolor='black', hatch='\\')
-ax[2,0].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='PEDR MS Not In', color='#797BB7', edgecolor='black', hatch='x')
+ax[2,0].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='MUA-MD SS In', color='#9BC985', edgecolor='black', hatch='/')
+ax[2,0].bar(x - width / 6,  unl_ss_not_in, width=width/6, label='MUA-MD SS Not In', color='#F7D58B', edgecolor='black', hatch='*')
+ax[2,0].bar(x  , unl_ms_in, width=width/6, label='MUA-MD MS In', color='#B595BF',edgecolor='black', hatch='\\')
+ax[2,0].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='MUA-MD MS Not In', color='#797BB7', edgecolor='black', hatch='x')
 ax[2,0].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB B-MS In', color='#9CD1C8', edgecolor='black', hatch='o')
 
 

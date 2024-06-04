@@ -34,11 +34,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='PEDR (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='PEDR (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
          label='MIB (B-SS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
@@ -69,12 +69,11 @@ plt.xlabel('Noise Ratio' ,fontsize=20)
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),textcoords='offset points', ha='right', va='center', fontsize=15)
 
 
 # plt.title('(c) Utility Preservation', fontsize=24)
-plt.legend(loc=(0.45,0.1),fontsize=20)
+plt.legend(loc=(0.35,0.1),fontsize=20)
 plt.tight_layout()
 #plt.title("MNIST")
 plt.rcParams['figure.figsize'] = (2.0, 1)

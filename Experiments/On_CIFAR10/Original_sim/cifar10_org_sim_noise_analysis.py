@@ -65,8 +65,7 @@ plt.xlabel('Noise Ratio' ,fontsize=20)
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),textcoords='offset points', ha='right', va='center', fontsize=15)
 
 
 # plt.title('(c) Utility Preservation', fontsize=24)

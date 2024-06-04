@@ -181,11 +181,11 @@ UEV_second_in = [0.3197, 0.2100, 0.1567, 0.1513, 0.0217, 0.0033]
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 ax[2].plot(x, UEV, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='First order (not in)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='First Order Not In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 ax[2].plot(x, UEV_second, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='Second order (not in)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='Second Order Not In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 # plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
@@ -193,11 +193,11 @@ ax[2].plot(x, UEV_second, linestyle='--', color='#9BC985',  marker='s', fillstyl
 
 
 ax[2].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='First order (in)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='First Order In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 ax[2].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='Second order (in)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='Second Order In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 

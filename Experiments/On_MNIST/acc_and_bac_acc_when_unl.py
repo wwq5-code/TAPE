@@ -97,7 +97,7 @@ plt.xticks(my_x_ticks,fontsize=20)
 # frame = legend.get_frame()
 # frame.set_facecolor('white')
 
-plt.legend(loc='best',frameon=True, facecolor='white', fontsize=19)
+plt.legend(loc='best',frameon=True, facecolor='white', framealpha=0.5, fontsize=19)
 # plt.legend(facecolor='white', edgecolor='black')
 # plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
 #            ncol=3, mode="expand", borderaxespad=0., fontsize=16)

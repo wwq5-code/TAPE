@@ -24,10 +24,10 @@ unl_multi_lower_in=[0.006774, 0.00792, 0.01958, 0.05628]
 unl_multi_lower_not_in =[0.0108651, 0.01275, 0.049736, 0.417920]
 
 for i in range(len(x)):
-    unl_mib[i] = unl_mib[i]*10
-    unl_muv[i] = unl_muv[i] * 10
-    unl_multi_lower_in[i] = unl_multi_lower_in[i]*10
-    unl_multi_lower_not_in[i] = unl_multi_lower_not_in[i]*10
+    unl_mib[i] = unl_mib[i]
+    unl_muv[i] = unl_muv[i]
+    unl_multi_lower_in[i] = unl_multi_lower_in[i]
+    unl_multi_lower_not_in[i] = unl_multi_lower_not_in[i]
 
 plt.style.use('seaborn')
 plt.figure(figsize=(5.5, 5.3))
@@ -38,11 +38,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='SS In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD In (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='SS Not In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD Not In (SS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_multi_lower_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
 #          label='MS In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
@@ -65,7 +65,7 @@ plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='fu
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 plt.ylabel('Average UE' ,fontsize=24)
-my_y_ticks = np.arange(0, 5.2, 1)
+my_y_ticks = np.arange(0, 0.52, 0.1)
 plt.yticks(my_y_ticks,fontsize=20)
 # plt.yscale('log')
 
@@ -80,8 +80,7 @@ plt.xticks(x, labels, fontsize=20)
 # Scale the y-values by a factor of 10
 
 
-plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),textcoords='offset points', ha='right', va='center', fontsize=15)
 
 plt.title('On MNIST', fontsize=24 )
 

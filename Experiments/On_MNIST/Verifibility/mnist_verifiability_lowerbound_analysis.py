@@ -21,7 +21,7 @@ unl_muv_includes = [0.7247, 0.9747, 0.9973, 0.996]
 unl_muv = [0.3823, 0.6520, 0.7057, 0.9217]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
-unl_lower_in = [0.0000, 0.2830, 0.3213, 0.3100]
+unl_lower_in = [0.0000, 0.1830, 0.2813, 0.3100]
 unl_lower_not_in = [0.8793, 0.9307, 0.9547, 0.9933 ]
 
 unl_multi_lower_in = [0, 0.0067, 0.1097, 0.2020]
@@ -37,18 +37,18 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_lower_in, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='SS In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD In (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_lower_not_in, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='SS Not In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD Not In (SS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 plt.plot(x, unl_multi_lower_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='MS In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD In (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 plt.plot(x, unl_multi_lower_not_in, linestyle=':', color='#E07B54',  marker='^', fillstyle='full', markevery=markevery,
-         label='MS Not In', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD Not In (MS)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
 
@@ -72,12 +72,11 @@ plt.xlabel('Task Weight $\\alpha$' ,fontsize=20)
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e0", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),textcoords='offset points', ha='right', va='center', fontsize=15)
 
 
 # plt.title('(c) Utility Preservation', fontsize=24)
-plt.legend(loc=(0.45,0.4),fontsize=20)
+plt.legend(loc=(0.15,0.4),fontsize=20)
 plt.tight_layout()
 #plt.title("MNIST")
 plt.rcParams['figure.figsize'] = (2.0, 1)

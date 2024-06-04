@@ -61,8 +61,8 @@ plt.ylim(0.5,1.2)
 # plt.grid(color='white', linestyle='-', linewidth=0.5)
 
 # plt.grid(axis='y')
-
-plt.legend(loc='upper left', fontsize=20)
+plt.legend(loc=(0.02, 0.64), fontsize=20)
+#plt.legend(loc='upper left', fontsize=20)
 # plt.xlabel('$\it{ESS}$' ,fontsize=20)
 # ax.bar_label(rects1, padding=1)
 # ax.bar_label(rects2, padding=3)

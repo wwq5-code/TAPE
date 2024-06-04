@@ -1912,7 +1912,6 @@ grid = torchvision.utils.make_grid(x, nrow=1 )
 # clean erased samples, still have similar samples in the remaining dataset
 
 # here. the batch size is the unlearning samples size, because we collect the update as the difference for the unlearning operation.
-
 unlearning_s_size = args.unl_samples_size
 
 dataloader_er_clean_on_re = DataLoader(er_on_remaining_set, batch_size=unlearning_s_size, shuffle=True)
@@ -1926,7 +1925,6 @@ dataloader_er_clean = DataLoader(erasing_set, batch_size=unlearning_s_size, shuf
 
 # samples with backdoor trigger, not in the remainig dataset.
 dataloader_er_with_trigger = DataLoader(erased_set_with_tri, batch_size=unlearning_s_size, shuffle=True)
-
 
 
 # Concatenate datasets and create a new loader
@@ -2060,7 +2058,6 @@ vib_full_trained.decoder.trainable = True
 vib_full_trained.fc3.trainable = True
 
 
-
 # add erased, full training
 start_time = time.time()
 for epoch in range(args.num_epochs):
@@ -2118,7 +2115,7 @@ reconstructor_bac = train_reconstructor(copy.deepcopy(vib_full_trained), er_with
 
 
 
-avg_mse_on_re,  average_sim_on_re, temp_img = get_avg_recon_MSE(copy.deepcopy(reconstructor_er_re),copy.deepcopy(vib_full_trained), er_clean_on_re_train_loader, reconstruction_function, "er_clean_on_re")
+avg_mse_on_re, average_sim_on_re, temp_img = get_avg_recon_MSE(copy.deepcopy(reconstructor_er_re),copy.deepcopy(vib_full_trained), er_clean_on_re_train_loader, reconstruction_function, "er_clean_on_re")
 total_samples = sum(len(data) for data, _ in er_clean_on_re_train_loader)
 y_tensor = torch.ones(total_samples, dtype=torch.long)
 er_clean_on_re_veri_set = Data.TensorDataset(temp_img, y_tensor)

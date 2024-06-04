@@ -22,8 +22,8 @@ unl_muv = [0.97545, 0.97118, 0.971089, 0.97048, 0.97083, 0.97019]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 for i in range(len(x)):
-    unl_mib[i] = unl_mib[i]*10
-    unl_muv[i] = unl_muv[i] * 10
+    unl_mib[i] = unl_mib[i]
+    unl_muv[i] = unl_muv[i]
 
 plt.style.use('seaborn')
 plt.figure(figsize=(5.5, 5.3))
@@ -34,11 +34,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='Includes', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='Not Includes',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD Not In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
 #          label='VBU', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
@@ -60,18 +60,17 @@ plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='fu
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 plt.ylabel('Rec. Similarity' ,fontsize=24)
-my_y_ticks = np.arange(9.5, 9.81, 0.1)
+my_y_ticks = np.arange(0.95, 0.981, 0.005)
 plt.yticks(my_y_ticks,fontsize=20)
 plt.xlabel('$\it{ESS}$' ,fontsize=20)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),textcoords='offset points', ha='right', va='center', fontsize=15)
 
 # plt.title('(c) Utility Preservation', fontsize=24)
-plt.legend(loc='best',fontsize=20)
+plt.legend(loc='lower left',fontsize=20)
 plt.tight_layout()
 #plt.title("MNIST")
 plt.rcParams['figure.figsize'] = (2.0, 1)

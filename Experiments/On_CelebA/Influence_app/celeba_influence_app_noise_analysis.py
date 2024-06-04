@@ -22,8 +22,8 @@ unl_mib = [0.13345, 0.134706, 0.1367983, 0.145723, 0.154221, 0.166071]
 unl_muv = [0.095646, 0.097062, 0.10083, 0.106176, 0.113739, 0.1235941]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 for i in range(len(x)):
-    unl_mib[i] = unl_mib[i]*10
-    unl_muv[i] = unl_muv[i] * 10
+    unl_mib[i] = unl_mib[i]
+    unl_muv[i] = unl_muv[i]
 
 
 plt.style.use('seaborn')
@@ -35,11 +35,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='Single-Sample', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='Multi-Sample',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
 #          label='VBU', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
@@ -61,15 +61,14 @@ plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='fu
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 plt.ylabel('Average UE' ,fontsize=24)
-my_y_ticks = np.arange(0, 4.1, 0.8)
+my_y_ticks = np.arange(0, 0.41, 0.08)
 plt.yticks(my_y_ticks,fontsize=20)
 plt.xlabel('Noise Ratio' ,fontsize=20)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')
 
-plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10),
-             textcoords='offset points', ha='right', va='center', fontsize=15)
+#plt.annotate(r"1e-1", xy=(0.1, 1.01), xycoords='axes fraction', xytext=(-10, 10), textcoords='offset points', ha='right', va='center', fontsize=15)
 
 # plt.title('On CIFAR10', fontsize=24)
 plt.legend(loc='best',fontsize=20)

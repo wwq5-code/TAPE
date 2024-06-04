@@ -1848,6 +1848,7 @@ elif args.dataset == "CIFAR10":
     x = x.view(1, 3, 32, 32)
 elif args.dataset == "CelebA":
     x = x.view(1, 3, 32, 32)
+
 print(x)
 grid = torchvision.utils.make_grid(x, nrow=1, cmap="gray")
 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB

@@ -180,11 +180,11 @@ UEV_no_both = [142.9, 118.9, 117.9, 116.00222, 116.92408, 116.9]
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 ax[2].plot(x, UEV, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='PEDR', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 ax[2].plot(x, UEV_no_mask, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='PEDR w/o masking',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD w/o masking',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 # plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
@@ -192,11 +192,11 @@ ax[2].plot(x, UEV_no_mask, linestyle='--', color='#9BC985',  marker='s', fillsty
 
 
 ax[2].plot(x, UEV_no_division, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='PEDR w/o division',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD w/o division',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 ax[2].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='PEDR w/o both',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD w/o both',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #F7D58B
 
