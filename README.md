@@ -28,3 +28,11 @@ python /MUV_Reconstruciton/On_MNIST/Our_method/MUV_on_MNIST_unl_multi.py
 ```
 python /MUV_Reconstruciton/On_CIFAR10/Our_method/MUV_on_CIFAR10_unl_multi.py
 ```
+
+3. To run the MUA-MD on CelebA, we can run
+
+```
+python /MUV_Reconstruciton/On_CelebA/Our_method/MUV_on_CelebA_unl_multi.py
+```
+Note that, to sucessfully run the program on CelebA, we need first prepare the CelebA dataset, which can be downloaded from: 
+(https://drive.google.com/drive/folders/0B7EVK8r0v71pWEZsZE9oNnFzTm8?resourcekey=0-5BR16BdXnb8hVj6CNHKzLg)
