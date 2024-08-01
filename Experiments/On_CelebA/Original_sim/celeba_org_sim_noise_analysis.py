@@ -12,7 +12,7 @@ x=[1, 2, 3, 4, 5, 6]
 # attack_for_plt=[0, 0.3524, 0, 0.1762, 0.1762]
 # basic_for_plt=[99.8, 99.8, 99.8, 99.8, 99.8]
 
-labels = ['0', '0.2', '0.4', '0.6', '0.8', '1']
+labels = ['0', '1.6', '3.2', '4.8', '6.4', '8']
 # unl_org = [97.77, 97.55, 97.35, 97.29, 97.21, 97.21]
 
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
@@ -31,7 +31,7 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='none', markevery=markevery,
-         label='Noise Injected', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='Perturbed Data', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 # plt.plot(x, unl_muv, linestyle='--', color='g',  marker='s', fillstyle='none', markevery=markevery,
@@ -60,7 +60,7 @@ plt.ylabel('Similarity' ,fontsize=24)
 my_y_ticks = np.arange(0.9 ,1.01,0.02)
 plt.ylim(0.9,1.01)
 plt.yticks(my_y_ticks,fontsize=20)
-plt.xlabel('Noise Ratio' ,fontsize=20)
+plt.xlabel('Perturbation Limit' ,fontsize=20)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')

@@ -12,7 +12,7 @@ x=[1, 2, 3, 4, 5, 6]
 # attack_for_plt=[0, 0.3524, 0, 0.1762, 0.1762]
 # basic_for_plt=[99.8, 99.8, 99.8, 99.8, 99.8]
 
-labels = ['0', '0.2', '0.4', '0.6', '0.8', '1']
+labels = ['0', '1.6', '3.2', '4.8', '6.4', '8']
 # unl_org = [97.77, 97.55, 97.35, 97.29, 97.21, 97.21]
 
 unl_mib_ss = [0, 0, 0, 0, 0, 0]
@@ -42,11 +42,11 @@ markevery=1
 #          label='MUV (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 plt.plot(x, unl_muv, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='MUA-MD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-PD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv_ms, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='MUA-MD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-PD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle='-.', color='k',  marker='D', fillstyle='none', markevery=markevery,
 #          label='MIB (SS-B)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
@@ -77,7 +77,7 @@ leg = plt.legend(fancybox=True, shadow=True)
 plt.ylabel('Running Time' ,fontsize=24)
 my_y_ticks = np.arange(0, 1100, 200)
 plt.yticks(my_y_ticks,fontsize=20)
-plt.xlabel('Noise Ratio' ,fontsize=20)
+plt.xlabel('Perturbation Limit' ,fontsize=20)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')

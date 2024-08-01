@@ -54,12 +54,10 @@ ax[0].plot(x, UEV_second, linestyle='--', color='#9BC985',  marker='s', fillstyl
 #          label='MIB (bac.)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
-ax[0].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+#ax[0].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
-ax[0].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+#ax[0].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery, label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 
@@ -123,12 +121,10 @@ ax[1].plot(x, UEV_second, linestyle='--', color='#9BC985',  marker='s', fillstyl
 #          label='MIB (bac.)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
-ax[1].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+#ax[1].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery, label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
-ax[1].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+#ax[1].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery, label='MIB (Normal Not In.)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 
@@ -192,12 +188,10 @@ ax[2].plot(x, UEV_second, linestyle='--', color='#9BC985',  marker='s', fillstyl
 #          label='MIB (bac.)', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
 
 
-ax[2].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='First Order In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+#ax[2].plot(x, UEV_in, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery, label='First Order In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
-ax[2].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='Second Order In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+#ax[2].plot(x, UEV_second_in, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery, label='Second Order In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 

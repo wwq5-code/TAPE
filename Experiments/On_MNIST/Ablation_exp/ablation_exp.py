@@ -6,7 +6,7 @@ import  matplotlib.pyplot as plt
 plt.style.use('seaborn')
 
 fig, ax = plt.subplots(1, 3, figsize=(17, 4)) #sharex='col',
-fig.subplots_adjust(bottom=0.2)
+fig.subplots_adjust(bottom=0.16)
 
 # for i in range(2):
 #     for j in range(3):
@@ -76,10 +76,10 @@ ax[0].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillsty
 # plt.grid()
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
-ax[0].set_ylabel('Rec. Similarity', fontsize=20)
+ax[0].set_ylabel('Rec. Similarity', fontsize=18)
 my_y_ticks = np.arange(0.6, 1.01, 0.08)
 ax[0].set_yticks(my_y_ticks )
-ax[0].set_xlabel('$\it{ESS}$' ,fontsize=20)
+ax[0].set_xlabel('$\it{ESS}$' ,fontsize=18)
 
 ax[0].set_xticklabels(labels ,fontsize=13)
 ax[0].set_xticks(x)
@@ -147,10 +147,10 @@ ax[1].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillsty
 # plt.grid()
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
-ax[1].set_ylabel('Verifiability', fontsize=20)
+ax[1].set_ylabel('Verifiability', fontsize=18)
 my_y_ticks = np.arange(0, 1.1, 0.2)
 ax[1].set_yticks(my_y_ticks )
-ax[1].set_xlabel('$\it{ESS}$' ,fontsize=20)
+ax[1].set_xlabel('$\it{ESS}$' ,fontsize=18)
 
 ax[1].set_xticklabels(labels ,fontsize=13)
 ax[1].set_xticks(x)
@@ -180,11 +180,11 @@ UEV_no_both = [142.9, 118.9, 117.9, 116.00222, 116.92408, 116.9]
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 ax[2].plot(x, UEV, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='MUA-MD', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-PD', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 ax[2].plot(x, UEV_no_mask, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='MUA-MD w/o masking',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-PD w/o UDP',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 # plt.plot(x, unl_mib_bck, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
@@ -192,11 +192,11 @@ ax[2].plot(x, UEV_no_mask, linestyle='--', color='#9BC985',  marker='s', fillsty
 
 
 ax[2].plot(x, UEV_no_division, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='MUA-MD w/o division',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-PD w/o UID',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 ax[2].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='MUA-MD w/o both',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-PD w/o both',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #F7D58B
 
@@ -211,10 +211,10 @@ ax[2].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillsty
 # plt.grid()
 # leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
-ax[2].set_ylabel('Running Time', fontsize=20)
+ax[2].set_ylabel('Running Time', fontsize=18)
 my_y_ticks = np.arange(108, 152, 8)
 ax[2].set_yticks(my_y_ticks )
-ax[2].set_xlabel('$\it{ESS}$' ,fontsize=20)
+ax[2].set_xlabel('$\it{ESS}$' ,fontsize=18)
 
 ax[2].set_xticklabels(labels ,fontsize=13)
 ax[2].set_xticks(x)
@@ -246,7 +246,7 @@ handles, labels = ax[2].get_legend_handles_labels()
 # labels = ['Methods and Scenarios:'] + labels
 # labels.insert(1, '')
 
-fig.legend(handles, labels,  loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.13),fontsize=20)
+fig.legend(handles, labels,  loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.13),fontsize=18)
 
 #facecolor='#EAEAF2', frameon=True,
 # plt.legend( title = 'Methods and Datasets',frameon=True, facecolor='white', loc='best',
