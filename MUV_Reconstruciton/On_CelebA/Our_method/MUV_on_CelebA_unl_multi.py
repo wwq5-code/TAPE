@@ -3,7 +3,6 @@ import sys
 sys.argv = ['']
 del sys
 
-
 import os
 # os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 
@@ -278,7 +277,7 @@ class PoisonedDataset(Dataset):
                 # x_cpu = x.cpu().data
                 # x_cpu = x_cpu.clamp(0, 1)
                 # x_cpu = x_cpu.view(1, 1, 28, 28)
-                # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+                # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
                 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
                 # plt.show()
 
@@ -518,7 +517,7 @@ def add_trigger(add_backdoor, data, targets, poison_samples, mode, feature_extra
         # x_cpu = x.cpu().data
         # x_cpu = x_cpu.clamp(0, 1)
         # x_cpu = x_cpu.view(1, 1, 28, 28)
-        # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+        # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
@@ -543,15 +542,12 @@ def prepare_verification_dataset( er_clean_on_re_set, er_on_rem_with_tri_set, er
 
     for i in range(len(combined_not_in_set)):
         grad, img = combined_not_in_set[i]
-        combined_not_in_set[i] = grad, img , 0
+        combined_not_in_set[i] = grad, img, 0
 
     for i in range(len(combined_in_set)):
         grad, img = combined_in_set[i]
 
-        combined_in_set[i] = grad, img,  1
-
-
-
+        combined_in_set[i] = grad, img, 1
 
     indices_not_in = list(range(len(combined_not_in_set)))
     indices_in = list(range(len(combined_in_set)))
@@ -618,7 +614,7 @@ def add_trigger_new(add_backdoor, dataset, poison_samples, mode, args):
         # x_cpu = x.cpu().data
         # x_cpu = x_cpu.clamp(0, 1)
         # x_cpu = x_cpu.view(1, 1, 28, 28)
-        # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+        # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
@@ -651,7 +647,7 @@ def args_parser():
 
 class LinearModel(nn.Module):
     # 定义神经网络
-    def __init__(self, n_feature=192, h_dim=3 * 32, n_output=10):
+    def __init__(self, n_feature=192, h_dim=450, n_output=10):
         # 初始化数组，参数分别是初始化信息，特征数，隐藏单元数，输出单元数
         super(LinearModel, self).__init__()
         self.fc1 = nn.Linear(n_feature, h_dim)  # 第一个全连接层
@@ -693,23 +689,6 @@ class Decoder(nn.Module):
         x = self.sigmoid(self.deconv5(x))  # Use sigmoid if the image values are normalized between 0 and 1
         return x
 
-class LinearModel_embed(nn.Module):
-    # 定义神经网络
-    def __init__(self, n_feature=192, h_dim=3 * 32, n_output=10):
-        # 初始化数组，参数分别是初始化信息，特征数，隐藏单元数，输出单元数
-        super(LinearModel, self).__init__()
-        self.fc1 = nn.Linear(n_feature, h_dim)  # 第一个全连接层
-        self.fc2 = nn.Linear(h_dim, n_output)  # output
-
-        self.fc3 = nn.Linear(n_output, n_output)  # output
-
-    # 设置隐藏层到输出层的函数
-
-    def forward(self, x):
-        # 定义向前传播函数
-        x1 = F.relu(self.fc1(x))
-        x2 = F.relu(x - self.fc2(x1))
-        return self.fc3(x2)
 
 
 def conv_block(in_channels, out_channels, stride=1):
@@ -808,8 +787,6 @@ class Stega(nn.Module):
         return xs_hat2
 
 
-
-
 def init_stega(args):
     if args.dataset == "MNIST":
         nn1 = LinearModel(n_feature=28*28, n_output=28*28)
@@ -819,13 +796,6 @@ def init_stega(args):
     stega = Stega(nn1, nn2, decoder)
     stega.to(args.device)
     return stega
-
-
-
-
-
-
-
 
 
 class VIB(nn.Module):
@@ -942,7 +912,6 @@ def init_vib(args):
         decoder = Decoder() #LinearModel(n_feature=args.dimZ, n_output=3 * 32 * 32)
         lr = args.lr
 
-
     vib = VIB(encoder, approximator, decoder)
     vib.to(args.device)
     return vib, lr
@@ -1021,14 +990,14 @@ def vib_train(dataset, model, loss_fn, reconstruction_function, args, epoch, acc
             x_cpu = x.cpu().data
             x_cpu = x_cpu.clamp(0, 1)
             x_cpu = x_cpu.view(x_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1061,7 +1030,6 @@ def vib_train(dataset, model, loss_fn, reconstruction_function, args, epoch, acc
     #     # mse_list.append(BCE.item())
 
     return model, acc_list, mse_list
-
 
 def continue_vib_train(dataset, model, loss_fn, reconstruction_function, args, epoch, acc_list, mse_list, train_loader, train_type, dataloader_er_clean, dataloader_er_with_trigger):
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
@@ -1132,14 +1100,14 @@ def continue_vib_train(dataset, model, loss_fn, reconstruction_function, args, e
             x_cpu = x.cpu().data
             x_cpu = x_cpu.clamp(0, 1)
             x_cpu = x_cpu.view(x_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_cpu, nrow=4)
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4)
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1173,13 +1141,14 @@ def continue_vib_train(dataset, model, loss_fn, reconstruction_function, args, e
 
     return model, acc_list, mse_list
 
+
 def plot_latent(autoencoder, data_loader, args, num_batches=100):
     for i, (x, y) in enumerate(data_loader):
         # x = x.view(x.size(0), -1)
         z, x_hat, mu, logvar = autoencoder(x.to(args.device), mode='VAE')
         z = z.to('cpu').detach().numpy()
         y = y.to('cpu')
-        plt.scatter(z[:, 0], z[:, 1], c=y, cmap='tab10')
+        plt.scatter(z[:, 0], z[:, 1], c=y)
         if i > num_batches:
             plt.colorbar()
             break
@@ -1213,7 +1182,7 @@ def create_backdoor_train_dataset(dataname, train_data, base_label, trigger_labe
     elif args.dataset == "CIFAR10":
         x = x.view(1, 3, 32, 32)
     print(x)
-    grid = torchvision.utils.make_grid(x, nrow=1, cmap="gray")
+    grid = torchvision.utils.make_grid(x, nrow=1 )
     plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
     plt.show()
     return train_data.data, train_data.targets
@@ -1224,7 +1193,7 @@ def create_backdoor_train_dataset(dataname, train_data, base_label, trigger_labe
                 # x_cpu = x.cpu().data
                 # x_cpu = x_cpu.clamp(0, 1)
                 # x_cpu = x_cpu.view(1, 3, 32, 32)
-                # grid = torchvision.utils.make_grid(x_cpu, nrow=1, cmap="gray")
+                # grid = torchvision.utils.make_grid(x_cpu, nrow=1 )
                 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
                 # plt.show()
 """
@@ -1235,7 +1204,6 @@ def linear_train(data_loader, vib_full_trained, model, loss_fn, args):
     vib_full_trained.eval()
     for step, (x, y) in enumerate(data_loader):
         x, y = x.to(args.device), y.to(args.device)  # (B, C, H, W), (B, 10)
-
 
         x = x.view(x.size(0), -1)
         # x_hat = x_hat.view(x_hat.size(0), -1)
@@ -1329,7 +1297,7 @@ def eva_vae_generation(vib, classifier_model, dataloader_erase, args, name='test
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 1, 28, 28)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1516,10 +1484,10 @@ def unlearning_vae(vib, args, dataloader_erase, dataloader_remain, reconstructio
     return vib_unl
 
 
-def get_grad_dataset(model, dataset_loader, erasing_size):
-    dim_z = 256
+def get_grad_dataset(model, dataset_loader, erasing_size, args):
+    output_size = 900
     temp_img = torch.empty(0, 3, 32, 32).float().to(args.device)
-    temp_grad = torch.empty(0, dim_z).float().to(args.device)
+    temp_grad = torch.empty(0, output_size).float().to(args.device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     total_loss = 0
@@ -1530,6 +1498,9 @@ def get_grad_dataset(model, dataset_loader, erasing_size):
         if count_index >= erasing_size*2:
             break
         image = x
+        B, C, H, W = image.size()
+        # if B!=args.unl_samples_size:
+        #     continue
         logits_z, logits_y, x_hat, mu, logvar, x_m, x_inverse_m = model(x, mode='with_reconstruction')  # (B, C* h* w), (B, N, 10)
         # VAE two loss: KLD + MSE
 
@@ -1571,7 +1542,7 @@ def get_grad_dataset(model, dataset_loader, erasing_size):
             # if name == 'encoder.linear_head.weight':
             #     print(param)
 
-            if name == 'encoder.linear_head.bias':
+            if name == 'approximator.fc2.weight':
                 # print(param)
                 temp_img = torch.cat([temp_img, image], dim=0)
                 t_grad = param.grad.view(1, -1)
@@ -1582,17 +1553,17 @@ def get_grad_dataset(model, dataset_loader, erasing_size):
                 std_dev = 0.2  # Standard deviation of the distribution
 
                 # Generate Gaussian noise
-                random_tensor = torch.randn(B, dim_z) * std_dev + mean
+                random_tensor = torch.randn(B, output_size) * std_dev + mean
                 random_tensor = random_tensor.cuda()
-                # random_tensor = torch.rand(B, dim_z).cuda()
-                scaled_random_tensor = random_tensor / random_tensor.sum() * B * dim_z
+                # random_tensor = torch.rand(B, output_size).cuda()
+                scaled_random_tensor = random_tensor / random_tensor.sum() * B * output_size
 
 
                 for scale_v in scaled_random_tensor:
                     mean_t_grad = t_grad.mean()
                     std_t_grad = t_grad.std()
                     t_grad = t_grad * scale_v
-                    # noise = torch.randn(n, dim_z-m).float().to(args.device)
+                    # noise = torch.randn(n, output_size-m).float().to(args.device)
                     # noise = noise * std_t_grad + mean_t_grad
                     # concatenated = torch.cat([t_grad, noise], dim=1)
                                         # print(noise)
@@ -1620,7 +1591,7 @@ def get_avg_recon_MSE(model, vib, test_loader, reconstruction_function, data_nam
     total_cosine_simi = 0.0
     for grad, img in test_loader:
         grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
-        grad = grad.view(grad.size(0), 1, 16, 16)
+        grad = grad.view(grad.size(0), 1, 30, 30)
         outputs = model(grad)
         x_hat,x_m,x_inverse_m = vib.reconstruction(outputs, img)
         img = img.view(img.size(0), -1)  # Flatten the images
@@ -1654,7 +1625,7 @@ def train_reconstructor(vib, train_loader, reconstruction_function, args):
     for epoch in range(args.num_epochs_recon):
         for grad, img in train_loader:
             grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
-            grad = grad.view(grad.size(0), 1, 16, 16)
+            grad = grad.view(grad.size(0), 1, 30, 30)
             # img = img.view(img.size(0), -1)  # Flatten the images
             output = reconstructor(grad)
             # output = output.view(output.size(0), 3, 32, 32)
@@ -1680,7 +1651,7 @@ def infer_in_or_not(vib_full_trained, reconstructor_bac, classifier_model, er_wi
     for batch_idx, (grad, img) in enumerate(er_with_trigger_train_loader):
         grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
         # x = x.view(x.size(0), -1)
-        grad = grad.view(grad.size(0), 1, 16, 16)
+        grad = grad.view(grad.size(0), 1, 30, 30)
         outputs = reconstructor_bac(grad)
         x_hat,x_m,x_inverse_m = vib_full_trained.reconstruction(outputs, img)
         x_hat = x_hat.view(x_hat.size(0), -1)
@@ -1693,7 +1664,7 @@ def infer_in_or_not(vib_full_trained, reconstructor_bac, classifier_model, er_wi
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4)
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1721,12 +1692,14 @@ args.gpu = 0
 args.device = torch.device('cuda:{}'.format(args.gpu) if torch.cuda.is_available() and args.gpu != -1 else 'cpu')
 args.iid = True
 args.model = 'z_linear'
-args.num_epochs = 5  # 50 #1 #50
+args.num_epochs = 5 #5  # 50 #1 #50
 args.num_epochs_recon = 50
+
+
 args.dataset = 'CelebA'
 args.add_noise = False
 args.beta = 0.0001
-args.mse_rate = 0 # 10
+args.mse_rate = 10 # 10
 args.lr = 0.0005
 args.dimZ = 128  # 40 #2
 args.batch_size = 160
@@ -1736,7 +1709,7 @@ args.train_type = "MULTI"
 args.kld_to_org = 1
 args.unlearn_bce = 0.3
 args.self_sharing_rate = 1
-args.laplace_scale = 1
+args.laplace_scale = 0
 
 # print('args.beta', args.beta, 'args.lr', args.lr)
 
@@ -1804,7 +1777,7 @@ print(len(remaining_set.dataset))
 # remaining_subset = My_subset(remaining_set.dataset, remaining_set.indices)
 # erasing_subset = My_subset(erasing_set.dataset, erasing_set.indices)
 
-dataloader_remain = DataLoader(remaining_set, batch_size=args.batch_size, shuffle=True)
+dataloader_remain = DataLoader(re_re_set, batch_size=args.batch_size, shuffle=True) # when using remaining_set, means including the erased samples in the remaining dataset
 
 # if we don't use poisoned set, we use full set
 dataloader_erased = DataLoader(erasing_set, batch_size=args.batch_size, shuffle=True)
@@ -1850,7 +1823,7 @@ elif args.dataset == "CelebA":
     x = x.view(1, 3, 32, 32)
 
 print(x)
-grid = torchvision.utils.make_grid(x, nrow=1, cmap="gray")
+grid = torchvision.utils.make_grid(x, nrow=1)
 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
 # plt.show()
 
@@ -1862,7 +1835,6 @@ grid = torchvision.utils.make_grid(x, nrow=1, cmap="gray")
 # clean erased samples, still have similar samples in the remaining dataset
 
 # here. the batch size is the unlearning samples size, because we collect the update as the difference for the unlearning operation.
-
 unlearning_s_size = args.unl_samples_size
 
 dataloader_er_clean_on_re = DataLoader(er_on_remaining_set, batch_size=unlearning_s_size, shuffle=True)
@@ -1876,7 +1848,6 @@ dataloader_er_clean = DataLoader(erasing_set, batch_size=unlearning_s_size, shuf
 
 # samples with backdoor trigger, not in the remainig dataset.
 dataloader_er_with_trigger = DataLoader(erased_set_with_tri, batch_size=unlearning_s_size, shuffle=True)
-
 
 
 # Concatenate datasets and create a new loader
@@ -1952,7 +1923,7 @@ acc = eva_vib(vib, test_loader, args, name='on test dataset', epoch=999)
 # We collect the gradient at this optimal \theta as the update difference for the data recovery.
 
 start_time = time.time()
-temp_grad, temp_img, total_loss_on_re = get_grad_dataset(copy.deepcopy(vib), dataloader_er_clean_on_re, erasing_size)
+temp_grad, temp_img, total_loss_on_re = get_grad_dataset(copy.deepcopy(vib), dataloader_er_clean_on_re, erasing_size, args)
 
 print("total_loss_on_re", total_loss_on_re/total_loss_on_re, total_loss_on_re)
 
@@ -1966,25 +1937,25 @@ print(f'grad prepare took {running_time_grad} seconds')
 
 
 
-temp_grad, temp_img, total_loss_tri_on_re = get_grad_dataset(copy.deepcopy(vib), dataloader_on_re_with_trigger, erasing_size)
+temp_grad, temp_img, total_loss_tri_on_re = get_grad_dataset(copy.deepcopy(vib), dataloader_on_re_with_trigger, erasing_size, args)
 print("total_loss_tri_on_re", total_loss_tri_on_re/total_loss_on_re, total_loss_tri_on_re)
 er_on_rem_with_tri_set = Data.TensorDataset(temp_grad, temp_img)
 er_on_rem_with_tri_train_loader = DataLoader(er_on_rem_with_tri_set, batch_size=args.batch_size, shuffle=True)
 
 
-temp_grad, temp_img, total_loss_er_cl = get_grad_dataset(copy.deepcopy(vib), dataloader_er_clean, erasing_size)
+temp_grad, temp_img, total_loss_er_cl = get_grad_dataset(copy.deepcopy(vib), dataloader_er_clean, erasing_size, args)
 print("total_loss_er_cl", total_loss_er_cl/total_loss_on_re, total_loss_er_cl)
 er_clean_set = Data.TensorDataset(temp_grad, temp_img)
 er_clean_train_loader = DataLoader(er_clean_set, batch_size=args.batch_size, shuffle=True)
 
 
-temp_grad, temp_img, total_loss_tri_er_cl = get_grad_dataset(copy.deepcopy(vib), dataloader_er_with_trigger, erasing_size)
+temp_grad, temp_img, total_loss_tri_er_cl = get_grad_dataset(copy.deepcopy(vib), dataloader_er_with_trigger, erasing_size, args)
 print("total_loss_tri_er_cl", total_loss_tri_er_cl/total_loss_on_re, total_loss_tri_er_cl)
 er_with_trigger_set = Data.TensorDataset(temp_grad, temp_img)
 er_with_trigger_train_loader = DataLoader(er_with_trigger_set, batch_size=args.batch_size, shuffle=True)
 
 
-temp_grad, temp_img, total_loss_remain = get_grad_dataset(copy.deepcopy(vib), dataloader_remain, erasing_size)
+temp_grad, temp_img, total_loss_remain = get_grad_dataset(copy.deepcopy(vib), dataloader_remain, erasing_size, args)
 print("total_loss_dataloader_remain", total_loss_remain/total_loss_on_re, total_loss_remain)
 remaining_grad_set = Data.TensorDataset(temp_grad, temp_img)
 remaining_grad_train_loader = DataLoader(remaining_grad_set, batch_size=args.batch_size, shuffle=True)
@@ -2214,14 +2185,14 @@ for batch_idx, (x, y) in enumerate(dataloader_erased_with_trigger):
         x_cpu = x.cpu().data
         x_cpu = x_cpu.clamp(0, 1)
         x_cpu = x_cpu.view(x_cpu.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x_cpu, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x_cpu, nrow=4 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
         x_hat_cpu = x_hat.cpu().data
         x_hat_cpu = x_hat_cpu.clamp(0, 1)
         x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
         # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         # plt.show()
 
@@ -2249,7 +2220,7 @@ with torch.no_grad():  # No need to track gradients
             x = x.view(x.size(0), 1, 28, 28)
         elif args.dataset == "CelebA":
             x = x.view(x.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x, nrow=4 )
         plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         plt.show()
         
@@ -2259,7 +2230,7 @@ with torch.no_grad():  # No need to track gradients
             x = x.view(x.size(0), 1, 28, 28)
         elif args.dataset == "CelebA":
             x = x.view(x.size(0), 3, 32, 32)
-        grid = torchvision.utils.make_grid(x, nrow=4, cmap="gray")
+        grid = torchvision.utils.make_grid(x, nrow=4 )
         plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
         plt.show()  
         break

@@ -33,11 +33,12 @@ marker_s = 3
 markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
-# plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery, label='MUA-MD In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
+         label='MUA-MD In', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='MUA-PD',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='MUA-MD Not In',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
 #          label='VBU', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
@@ -70,7 +71,6 @@ plt.xticks(x, labels, fontsize=20)
 
 # plt.title('(c) Utility Preservation', fontsize=24)
 plt.legend(loc='lower left',fontsize=20)
-plt.title('On CIFAR10', fontsize=20 )
 plt.tight_layout()
 #plt.title("MNIST")
 plt.rcParams['figure.figsize'] = (2.0, 1)

@@ -702,7 +702,7 @@ def args_parser():
 
 class LinearModel(nn.Module):
     # 定义神经网络
-    def __init__(self, n_feature=192, h_dim=3 * 32, n_output=10):
+    def __init__(self, n_feature=192, h_dim=3 * 30, n_output=10):
         # 初始化数组，参数分别是初始化信息，特征数，隐藏单元数，输出单元数
         super(LinearModel, self).__init__()
         self.fc1 = nn.Linear(n_feature, h_dim)  # 第一个全连接层
@@ -744,23 +744,6 @@ class Decoder(nn.Module):
         x = self.sigmoid(self.deconv5(x))  # Use sigmoid if the image values are normalized between 0 and 1
         return x
 
-class LinearModel_embed(nn.Module):
-    # 定义神经网络
-    def __init__(self, n_feature=192, h_dim=3 * 32, n_output=10):
-        # 初始化数组，参数分别是初始化信息，特征数，隐藏单元数，输出单元数
-        super(LinearModel, self).__init__()
-        self.fc1 = nn.Linear(n_feature, h_dim)  # 第一个全连接层
-        self.fc2 = nn.Linear(h_dim, n_output)  # output
-
-        self.fc3 = nn.Linear(n_output, n_output)  # output
-
-    # 设置隐藏层到输出层的函数
-
-    def forward(self, x):
-        # 定义向前传播函数
-        x1 = F.relu(self.fc1(x))
-        x2 = F.relu(x - self.fc2(x1))
-        return self.fc3(x2)
 
 
 def conv_block(in_channels, out_channels, stride=1):
@@ -1564,7 +1547,7 @@ def unlearning_vae(vib, args, dataloader_erase, dataloader_remain, reconstructio
 
 
 def get_grad_dataset(model, dataset_loader, erasing_size):
-    dim_z = 256
+    dim_z = 10*90
     temp_img = torch.empty(0, 1, 28, 28).float().to(args.device)
     temp_grad = torch.empty(0, dim_z).float().to(args.device)
 
@@ -1618,7 +1601,7 @@ def get_grad_dataset(model, dataset_loader, erasing_size):
             # if name == 'encoder.linear_head.weight':
             #     print(param)
 
-            if name == 'encoder.linear_head.bias':
+            if name == 'approximator.fc2.weight':
                 # print(param)
                 temp_img = torch.cat([temp_img, image], dim=0)
                 t_grad = param.grad.view(1, -1)
@@ -1626,7 +1609,7 @@ def get_grad_dataset(model, dataset_loader, erasing_size):
                 B, C, H, W  = image.size()
 
                 mean = 1  # Mean of the distribution
-                std_dev = 0.4  # Standard deviation of the distribution
+                std_dev = 0.2  # Standard deviation of the distribution
 
                 # Generate Gaussian noise
                 random_tensor = torch.randn(B, dim_z) * std_dev + mean
@@ -1667,7 +1650,7 @@ def get_avg_recon_MSE(model, vib, test_loader, reconstruction_function, data_nam
     total_cosine_simi = 0.0
     for grad, img in test_loader:
         grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
-        grad = grad.view(grad.size(0), 1, 16, 16)
+        grad = grad.view(grad.size(0), 1, 30, 30)
         outputs = model(grad)
         x_hat,x_m,x_inverse_m = vib.reconstruction(outputs, img)
         img = img.view(img.size(0), -1)  # Flatten the images
@@ -1701,7 +1684,7 @@ def train_reconstructor(vib, train_loader, reconstruction_function, args):
     for epoch in range(args.num_epochs_recon):
         for grad, img in train_loader:
             grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
-            grad = grad.view(grad.size(0), 1, 16, 16)
+            grad = grad.view(grad.size(0), 1, 30, 30)
             # img = img.view(img.size(0), -1)  # Flatten the images
             output = reconstructor(grad)
             # output = output.view(output.size(0), 3, 32, 32)
@@ -1727,7 +1710,7 @@ def infer_in_or_not(vib_full_trained, reconstructor_bac, classifier_model, er_wi
     for batch_idx, (grad, img) in enumerate(er_with_trigger_train_loader):
         grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
         # x = x.view(x.size(0), -1)
-        grad = grad.view(grad.size(0), 1, 16, 16)
+        grad = grad.view(grad.size(0), 1, 30, 30)
         outputs = reconstructor_bac(grad)
         x_hat,x_m,x_inverse_m = vib_full_trained.reconstruction(outputs, img)
         x_hat = x_hat.view(x_hat.size(0), -1)
@@ -1740,7 +1723,7 @@ def infer_in_or_not(vib_full_trained, reconstructor_bac, classifier_model, er_wi
             x_hat_cpu = x_hat.cpu().data
             x_hat_cpu = x_hat_cpu.clamp(0, 1)
             x_hat_cpu = x_hat_cpu.view(x_hat_cpu.size(0), 1, 28, 28)
-            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4 )
+            grid = torchvision.utils.make_grid(x_hat_cpu, nrow=4)
             # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
             # plt.show()
 
@@ -1768,12 +1751,12 @@ args.gpu = 0
 args.device = torch.device('cuda:{}'.format(args.gpu) if torch.cuda.is_available() and args.gpu != -1 else 'cpu')
 args.iid = True
 args.model = 'z_linear'
-args.num_epochs = 10 # 10
+args.num_epochs = 10 #10 # 10
 args.num_epochs_recon = 50 # 50
 args.dataset = 'MNIST'
 args.add_noise = False
 args.beta = 0.0001
-args.mse_rate = 0 # set 10 to show the uppper bound, because we can using the information bottleneck layer with all the data information
+args.mse_rate = 10
 args.lr = 0.0001
 args.dimZ = 128 # 40 #2
 args.batch_size = 16
@@ -1783,7 +1766,7 @@ args.train_type = "MULTI"
 args.kld_to_org = 1
 args.unlearn_bce = 0.3
 args.self_sharing_rate = 1
-args.laplace_scale = 1
+args.laplace_scale = 0
 
 # print('args.beta', args.beta, 'args.lr', args.lr)
 
@@ -1854,7 +1837,7 @@ print(len(remaining_set.dataset.data))
 # remaining_subset = My_subset(remaining_set.dataset, remaining_set.indices)
 # erasing_subset = My_subset(erasing_set.dataset, erasing_set.indices)
 
-dataloader_remain = DataLoader(remaining_set, batch_size=args.batch_size, shuffle=True)
+dataloader_remain = DataLoader(re_re_set, batch_size=args.batch_size, shuffle=True) # when using remaining_set, means including the erased samples in the remaining dataset
 
 # if we don't use poisoned set, we use full set
 dataloader_erased = DataLoader(erasing_set, batch_size=args.batch_size, shuffle=True)
@@ -1900,7 +1883,7 @@ elif args.dataset == "CIFAR10":
 elif args.dataset == "CelebA":
     x = x.view(1, 3, 32, 32)
 print(x)
-grid = torchvision.utils.make_grid(x, nrow=1 )
+grid = torchvision.utils.make_grid(x, nrow=1)
 # plt.imshow(np.transpose(grid, (1, 2, 0)))  # 交换维度，从GBR换成RGB
 # plt.show()
 

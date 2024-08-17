@@ -3,7 +3,6 @@ import sys
 sys.argv = ['']
 del sys
 
-
 import os
 # os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 
@@ -549,12 +548,12 @@ def prepare_verification_dataset( er_clean_on_re_set, er_on_rem_with_tri_set, er
 
     for i in range(len(combined_not_in_set)):
         grad, img = combined_not_in_set[i]
-        combined_not_in_set[i] = grad, img , 0
+        combined_not_in_set[i] = grad, img, 0
 
     for i in range(len(combined_in_set)):
         grad, img = combined_in_set[i]
 
-        combined_in_set[i] = grad, img,  1
+        combined_in_set[i] = grad, img, 1
 
 
 
@@ -657,7 +656,7 @@ def args_parser():
 
 class LinearModel(nn.Module):
     # 定义神经网络
-    def __init__(self, n_feature=192, h_dim=3 * 32, n_output=10):
+    def __init__(self, n_feature=192, h_dim=3 * 30, n_output=10):
         # 初始化数组，参数分别是初始化信息，特征数，隐藏单元数，输出单元数
         super(LinearModel, self).__init__()
         self.fc1 = nn.Linear(n_feature, h_dim)  # 第一个全连接层
@@ -699,23 +698,6 @@ class Decoder(nn.Module):
         x = self.sigmoid(self.deconv5(x))  # Use sigmoid if the image values are normalized between 0 and 1
         return x
 
-class LinearModel_embed(nn.Module):
-    # 定义神经网络
-    def __init__(self, n_feature=192, h_dim=3 * 32, n_output=10):
-        # 初始化数组，参数分别是初始化信息，特征数，隐藏单元数，输出单元数
-        super(LinearModel, self).__init__()
-        self.fc1 = nn.Linear(n_feature, h_dim)  # 第一个全连接层
-        self.fc2 = nn.Linear(h_dim, n_output)  # output
-
-        self.fc3 = nn.Linear(n_output, n_output)  # output
-
-    # 设置隐藏层到输出层的函数
-
-    def forward(self, x):
-        # 定义向前传播函数
-        x1 = F.relu(self.fc1(x))
-        x2 = F.relu(x - self.fc2(x1))
-        return self.fc3(x2)
 
 
 def conv_block(in_channels, out_channels, stride=1):
@@ -814,8 +796,6 @@ class Stega(nn.Module):
         return xs_hat2
 
 
-
-
 def init_stega(args):
     if args.dataset == "MNIST":
         nn1 = LinearModel(n_feature=28*28, n_output=28*28)
@@ -825,13 +805,6 @@ def init_stega(args):
     stega = Stega(nn1, nn2, decoder)
     stega.to(args.device)
     return stega
-
-
-
-
-
-
-
 
 
 class VIB(nn.Module):
@@ -852,14 +825,14 @@ class VIB(nn.Module):
             B, double_dimZ = double_logits_z.shape
             dimZ = int(double_dimZ / 2)
             mu = double_logits_z[:, :dimZ].cuda()
-            logvar = torch.log(torch.nn.functional.softplus(double_logits_z[:, dimZ:]).pow(2)).cuda()
+            logvar = torch.log(torch.nn.functional.softplus(double_logits_z[:, dimZ:]).pow(2) + 1e-6).cuda()
             logits_z = self.reparametrize(mu, logvar)
             return logits_z, mu, logvar
         elif mode == 'test':  # return top k pixels from input
             B, double_dimZ = double_logits_z.shape
             dimZ = int(double_dimZ / 2)
             mu = double_logits_z[:, :dimZ].cuda()
-            logvar = torch.log(torch.nn.functional.softplus(double_logits_z[:, dimZ:]).pow(2)).cuda()
+            logvar = torch.log(torch.nn.functional.softplus(double_logits_z[:, dimZ:]).pow(2) + 1e-6).cuda()
             logits_z = self.reparametrize(mu, logvar)
             return logits_z
 
@@ -1186,6 +1159,7 @@ def continue_vib_train(dataset, model, loss_fn, reconstruction_function, args, e
 
     return model, acc_list, mse_list
 
+
 def plot_latent(autoencoder, data_loader, args, num_batches=100):
     for i, (x, y) in enumerate(data_loader):
         # x = x.view(x.size(0), -1)
@@ -1248,7 +1222,6 @@ def linear_train(data_loader, vib_full_trained, model, loss_fn, args):
     vib_full_trained.eval()
     for step, (x, y) in enumerate(data_loader):
         x, y = x.to(args.device), y.to(args.device)  # (B, C, H, W), (B, 10)
-
 
         x = x.view(x.size(0), -1)
         # x_hat = x_hat.view(x_hat.size(0), -1)
@@ -1530,7 +1503,7 @@ def unlearning_vae(vib, args, dataloader_erase, dataloader_remain, reconstructio
 
 
 def get_grad_dataset(model, dataset_loader, erasing_size):
-    dim_z = 256
+    dim_z = 900
     temp_img = torch.empty(0, 3, 32, 32).float().to(args.device)
     temp_grad = torch.empty(0, dim_z).float().to(args.device)
 
@@ -1584,7 +1557,7 @@ def get_grad_dataset(model, dataset_loader, erasing_size):
             # if name == 'encoder.linear_head.weight':
             #     print(param)
 
-            if name == 'encoder.linear_head.bias':
+            if name == 'approximator.fc2.weight':
                 # print(param)
                 temp_img = torch.cat([temp_img, image], dim=0)
                 t_grad = param.grad.view(1, -1)
@@ -1633,7 +1606,7 @@ def get_avg_recon_MSE(model, vib, test_loader, reconstruction_function, data_nam
     total_cosine_simi = 0.0
     for grad, img in test_loader:
         grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
-        grad = grad.view(grad.size(0), 1, 16, 16)
+        grad = grad.view(grad.size(0), 1, 30, 30)
         outputs = model(grad)
         x_hat,x_m,x_inverse_m = vib.reconstruction(outputs, img)
         img = img.view(img.size(0), -1)  # Flatten the images
@@ -1667,7 +1640,7 @@ def train_reconstructor(vib, train_loader, reconstruction_function, args):
     for epoch in range(args.num_epochs_recon):
         for grad, img in train_loader:
             grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
-            grad = grad.view(grad.size(0), 1, 16, 16)
+            grad = grad.view(grad.size(0), 1, 30, 30)
             # img = img.view(img.size(0), -1)  # Flatten the images
             output = reconstructor(grad)
             # output = output.view(output.size(0), 3, 32, 32)
@@ -1693,7 +1666,7 @@ def infer_in_or_not(vib_full_trained, reconstructor_bac, classifier_model, er_wi
     for batch_idx, (grad, img) in enumerate(er_with_trigger_train_loader):
         grad, img = grad.to(args.device), img.to(args.device)  # (B, C, H, W), (B, 10)
         # x = x.view(x.size(0), -1)
-        grad = grad.view(grad.size(0), 1, 16, 16)
+        grad = grad.view(grad.size(0), 1, 30, 30)
         outputs = reconstructor_bac(grad)
         x_hat,x_m,x_inverse_m = vib_full_trained.reconstruction(outputs, img)
         x_hat = x_hat.view(x_hat.size(0), -1)
@@ -1739,17 +1712,17 @@ args.num_epochs_recon = 50
 args.dataset = 'CIFAR10'
 args.add_noise = False
 args.beta = 0.0001
-args.mse_rate = 0 # 10
+args.mse_rate = 10 # 10
 args.lr = 0.0005
 args.dimZ = 128  # 40 #2
 args.batch_size = 16
 args.erased_local_r = 0.05 # the erased data ratio
-args.unl_samples_size = 1
+args.unl_samples_size = 20
 args.train_type = "MULTI"
 args.kld_to_org = 1
 args.unlearn_bce = 0.3
 args.self_sharing_rate = 1
-args.laplace_scale = 0.6
+args.laplace_scale = 0.4
 
 # print('args.beta', args.beta, 'args.lr', args.lr)
 
@@ -1817,7 +1790,7 @@ print(len(remaining_set.dataset.data))
 # remaining_subset = My_subset(remaining_set.dataset, remaining_set.indices)
 # erasing_subset = My_subset(erasing_set.dataset, erasing_set.indices)
 
-dataloader_remain = DataLoader(remaining_set, batch_size=args.batch_size, shuffle=True)
+dataloader_remain = DataLoader(re_re_set, batch_size=args.batch_size, shuffle=True) # when using remaining_set, means including the erased samples in the remaining dataset
 
 # if we don't use poisoned set, we use full set
 dataloader_erased = DataLoader(erasing_set, batch_size=args.batch_size, shuffle=True)
@@ -1888,7 +1861,6 @@ dataloader_er_clean = DataLoader(erasing_set, batch_size=unlearning_s_size, shuf
 
 # samples with backdoor trigger, not in the remainig dataset.
 dataloader_er_with_trigger = DataLoader(erased_set_with_tri, batch_size=unlearning_s_size, shuffle=True)
-
 
 
 # Concatenate datasets and create a new loader
