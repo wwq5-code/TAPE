@@ -18,7 +18,7 @@ labels = ['0', '15', '30', '45', '60', '75']
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
 unl_mib = [0.174573, 0.17453, 0.1751174, 0.175243, 0.1754755, 0.175559]
 
-unl_muv = [0.17418, 0.17394, 0.17445, 0.174319, 0.17439018, 0.1739]
+unl_muv = [0.172318, 0.1723394, 0.17263445, 0.1734319, 0.173439018, 0.1739]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 
@@ -31,11 +31,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_mib, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='TaPD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='TaPD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # plt.plot(x, unl_mib, linestyle=':', color='r',  marker='^', fillstyle='none', markevery=markevery,
 #          label='VBU', linewidth=l_w,  markersize=m_s, markeredgewidth=marker_s)
@@ -59,7 +59,7 @@ leg = plt.legend(fancybox=True, shadow=True)
 plt.ylabel('Rec. Similarity' ,fontsize=24)
 my_y_ticks = np.arange(0.17 ,0.181,0.002)
 plt.yticks(my_y_ticks,fontsize=20)
-plt.xlabel('Perturbation Limit' ,fontsize=20)
+plt.xlabel('Perturbation Limit' ,fontsize=24)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')

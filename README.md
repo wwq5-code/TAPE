@@ -17,6 +17,23 @@ numpy==1.23.5
 
 We also show the requirements packages in requirements.txt
 
+Here, we demonstrate the overall evaluations, which are also the main achievement claimed in the paper. We will explain the results and demonstrate how to achieve these results using the script and corresponding parameters.
+
+Evaluated on NVIDIA Quadro RTX 6000 GPUs,
+### TABLE I: General Evaluation Results on MNIST, CIFAR10, STL-10, and CelebA:
+
+On MNIST, ESS=20
+
+| On MNIST             | Original    | MIB      |   TAPE   | 
+| --------             | --------    | -------- | -------- |  
+| Running time (s)     | 613         | 638      |  113     |  
+| Model Utility (Acc.) | 99.05%      | 98.73%   | 99.05%   |   
+| Rec. Sim.            | -           | -        |    -     |  
+| Unl. Verificability  | 0.00%       | 0.00%    | 98.67%   |  
+ 
+
+In this table, we can achieve these metric values by running corresponding python files.
+
 
 1. To run the TAPE on MNIST, we can run
 ```

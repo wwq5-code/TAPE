@@ -33,11 +33,11 @@ markevery=1
 #plt.figure(figsize=(8, 5.3))
 #plt.plot(x, unl_fr, color='blue', marker='^', label='Retrain',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv_includes, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='TaPD (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE (SS)', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 #plt.plot(x, unl_ss_w, color='g',  marker='*',  label='PriMU$_{w}$',linewidth=l_w, markersize=m_s)
 plt.plot(x, unl_muv, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='TaPD (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE (MS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 plt.plot(x, unl_mib, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
          label='MIB (B-SS)',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
@@ -64,7 +64,7 @@ leg = plt.legend(fancybox=True, shadow=True)
 plt.ylabel('Verifiability' ,fontsize=24)
 my_y_ticks = np.arange(0, 1.1, 0.2)
 plt.yticks(my_y_ticks,fontsize=20)
-plt.xlabel('Perturbation Limit' ,fontsize=20)
+plt.xlabel('Perturbation Limit' ,fontsize=24)
 
 plt.xticks(x, labels, fontsize=20)
 # plt.title('CIFAR10 IID')

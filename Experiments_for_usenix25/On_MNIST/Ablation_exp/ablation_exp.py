@@ -27,11 +27,11 @@ labels = ['1', '20', '40', '60', '80', '100']
 
 #UEV = [141.4497, 116.9057  , 118.2206 , 119.850, 118.458, 116.92136]
 UEV = [145.4497, 116.9057  , 118.2206 , 118.850, 118.458, 116.92136]
-UEV_no_mask = [121.49714, 95.250388, 95.3491835, 94.92731, 95.585058, 95.58505]
+UEV_no_mask = [131.49714, 105.250388, 105.3491835, 104.92731, 105.585058, 105.58505]
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
 UEV_no_division = [143.170001, 116.3346, 116.60770, 117.58471, 116.281131, 115.198461]
 
-UEV_no_both = [120.9, 93.9, 94.9, 94.00222, 94.92408, 94.9]
+UEV_no_both = [130.9, 103.9, 104.9, 104.00222, 104.92408, 104.9]
 # unl_ss_wo = [94.32, 94.53, 94.78, 93.38, 94.04, 97.21]
 
 l_w=3.5
@@ -44,20 +44,20 @@ width = 0.9 # the width of the bars
 
 
 ax[0].plot(x, UEV, linestyle='-', color='#797BB7', marker='o', fillstyle='full', markevery=markevery,
-         label='TaPD', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE', linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 ax[0].plot(x, UEV_no_mask, linestyle='--', color='#9BC985',  marker='s', fillstyle='full', markevery=markevery,
-         label='TaPD w/o UDP',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE w/o UDP',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 
 ax[0].plot(x, UEV_no_division, linestyle='-.', color='#2A5522',  marker='D', fillstyle='full', markevery=markevery,
-         label='TaPD w/o UID',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE w/o UID',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 
 ax[0].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillstyle='full', markevery=markevery,
-         label='TaPD w/o both',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
+         label='TAPE w/o both',linewidth=l_w, markersize=m_s, markeredgewidth=marker_s)
 
 # x = np.arange(len(labels))
 #

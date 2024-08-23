@@ -426,8 +426,8 @@ width = 0.7  # the width of the bars
 #plt.subplots(figsize=(8, 5.3))
 #plt.bar(x - width / 2 - width / 8 + width / 8, unl_fr, width=0.168, label='Retrain', color='dodgerblue', hatch='/')
 #ax[1,0].bar(x - width /6 - width / 6  , unl_ss_in,   width=width/6, label='MUA-MD SS In', color='#9BC985', edgecolor='black', hatch='/')
-ax[2,0].bar(x - width / 3,  unl_ss_not_in, width=width/3, label='TaPD SS', color='#F7D58B', edgecolor='black', hatch='*')
-ax[2,0].bar(x  , unl_ms_not_in, width=width/3, label='TaPD MS', color='#B595BF',edgecolor='black', hatch='\\')
+ax[2,0].bar(x - width / 3,  unl_ss_not_in, width=width/3, label='TAPE SS', color='#F7D58B', edgecolor='black', hatch='*')
+ax[2,0].bar(x  , unl_ms_not_in, width=width/3, label='TAPE MS', color='#B595BF',edgecolor='black', hatch='\\')
 #ax[1,0].bar( x + width / 6 , unl_ms_not_in, width=width/6, label='MUA-MD MS Not In', color='#797BB7', edgecolor='black', hatch='x')
 #ax[1,0].bar(x + width / 6 + width/6 , mib_ms_in, width=width/6, label='MIB B-MS In', color='#9CD1C8', edgecolor='black', hatch='o')
 

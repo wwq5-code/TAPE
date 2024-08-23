@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # user num = 50
-labels = ['0', '15', '30', '45', '60', '75']
+labels = ['0', '5', '10', '15', '20', '25']
 #unl_fr = [10*10*0.22 *5, 10*10*0.22*5, 10*10*0.22 *5, 10*10*0.22*5 , 10*10*0.22*5  , 10*10*0.22*5  ]
 
 
@@ -31,9 +31,9 @@ plt.style.use('seaborn')
 plt.figure(figsize=(6.5, 5.3))
 #plt.subplots(figsize=(8, 5.3))
 #plt.bar(x - width / 2 - width / 8 + width / 8, unl_fr, width=0.168, label='Retrain', color='dodgerblue', hatch='/')
-plt.bar(x - width / 3, TaPD_ss,   width=width / 3, label='TaPD (SS)', color='#797BB7', edgecolor='black', hatch='*')
-plt.bar(x , TaPS_ms, width=width / 3, label='TaPD (MS)', color='#9BC985',edgecolor='black', hatch='\\')
-plt.bar(x + width / 3, MIB, width=width / 3, label='MIB', color='#E58579', edgecolor='black', hatch='/')
+plt.bar(x - width / 3, TaPD_ss,   width=width / 3, label='TAPE (SS)', color='#797BB7', edgecolor='black', hatch='*')
+plt.bar(x , TaPS_ms, width=width / 3, label='TAPE (MS)', color='#9BC985',edgecolor='black', hatch='\\')
+plt.bar(x + width / 3, MIB, width=width / 3, label='MIB (B-MS)', color='#E58579', edgecolor='black', hatch='/')
 #plt.bar(x + width / 2 - width / 8 + width / 16, unl_hess_r, width=0.168, label='HBFU', color='orange', hatch='\\')
 
 
@@ -49,15 +49,15 @@ plt.ylabel('Running Time (s)', fontsize=24)
 plt.xticks(x, labels, fontsize=20)
 # ax.set_xticklabels(labels,fontsize=15)
 
-my_y_ticks = np.arange(0, 700.1, 100)
+my_y_ticks = np.arange(0, 1000.1, 200)
 plt.yticks(my_y_ticks, fontsize=20)
 # ax.set_yticklabels(my_y_ticks,fontsize=15)
 plt.legend(loc='upper left', fontsize=20)
-plt.xlabel('Perturbation Limit' ,fontsize=20)
+plt.xlabel('Perturbation Limit' ,fontsize=24)
 # ax.bar_label(rects1, padding=1)
 # ax.bar_label(rects2, padding=3)
 # ax.bar_label(rects3, padding=3)
-plt.title("On MNIST", fontsize= 20)
+plt.title("On MNIST", fontsize= 24)
 plt.tight_layout()
 
 plt.rcParams['figure.figsize'] = (2.0, 1)
