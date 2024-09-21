@@ -2,7 +2,7 @@
 
 # TAPE: Tailored Posterior Difference for Auditing of Machine Unlearning
 ## Overview
-This repository is the official implementation of TaPD, and the corresponding paper is under review.
+This repository is the official implementation of TAPE, and the corresponding paper is under review.
 
 
 ## Prerequisites

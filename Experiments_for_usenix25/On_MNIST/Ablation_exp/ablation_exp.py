@@ -230,7 +230,7 @@ ax[2].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillsty
 
 
 # plt.grid()
-leg = plt.legend(fancybox=True, shadow=True)
+#leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 ax[2].set_ylabel('Verifiability', fontsize=18)
 my_y_ticks = np.arange(0, 1.3, 0.2)
