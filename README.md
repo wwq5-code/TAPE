@@ -29,7 +29,7 @@ On MNIST, ESS=20
 | Running time (s)     | 613         | 638      |  113     |  
 | Model Utility (Acc.) | 99.05%      | 98.73%   | 99.05%   |   
 | Rec. Sim.            | -           | -        |   0.933  |  
-| Unl. Verificability  | 0.00%       | 0.00%    | 98.67%   |  
+| Unl. Verifiability  | 0.00%       | 0.00%    | 98.67%   |  
  
 On CIFAR10, ESS=20
 
@@ -38,7 +38,7 @@ On CIFAR10, ESS=20
 | Running time (s)     | 644         | 673      |  113     |  
 | Model Utility (Acc.) | 81.62%      | 79.13%   | 81.62%   |   
 | Rec. Sim.            | -           | -        | 0.973    |  
-| Unl. Verificability  | 0.00%       | 0.00%    | 97.44%   |  
+| Unl. Verifiability  | 0.00%       | 0.00%    | 97.44%   |  
 
 In this table, we can achieve these metric values by running corresponding python files.
 
