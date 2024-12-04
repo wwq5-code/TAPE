@@ -119,7 +119,7 @@ labels = ['1', '20', '40', '60', '80', '100']
 UEV = [0.96502, 0.93312, 0.9228, 0.915994, 0.903300, 0.902618]
 UEV_no_mask = [0.9502, 0.8186, 0.798016, 0.7780032, 0.75806064, 0.75779541]
 # unl_hess_r = [96.6, 96.66, 96.04, 95.94, 95.85, 97.21]
-UEV_no_division = [0.9653, 0.761445, 0.7627, 0.76964, 0.765321, 0.765159]
+UEV_no_division =   [0.9653, 0.761445, 0.7627, 0.76964, 0.765321, 0.765159]
 
 UEV_no_both = [0.949632, 0.7360603, 0.746120, 0.7571, 0.743322, 0.743321]
 
@@ -161,7 +161,7 @@ ax[1].plot(x, UEV_no_both, linestyle='-.', color='#E1C855',  marker='^', fillsty
 leg = plt.legend(fancybox=True, shadow=True)
 # plt.xlabel('Malicious Client Ratio (%)' ,fontsize=16)
 ax[1].set_ylabel('Rec. Similarity', fontsize=18)
-my_y_ticks = np.arange(0.6, 1.01, 0.08)
+my_y_ticks = np.arange(0.4, 1.01, 0.1)
 ax[1].set_yticks(my_y_ticks )
 ax[1].set_xlabel('$\it{ESS}$' ,fontsize=18)
 
