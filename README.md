@@ -2,7 +2,21 @@
 
 # TAPE: Tailored Posterior Difference for Auditing of Machine Unlearning
 ## Overview
-This repository is the official implementation of TAPE, and the corresponding paper is under review.
+This repository is the official implementation of TAPE, and the corresponding paper is accepted in WWW25.
+
+### Citation
+If the repository is helpful, please cite as the follows. We thank you very much.
+
+```
+@inproceedings{
+wang2025tape,
+title={{TAPE}: Tailored Posterior Difference for Auditing of Machine Unlearning},
+author={Weiqi Wang and Zhiyi Tian and An Liu and Shui Yu},
+booktitle={THE WEB CONFERENCE 2025},
+year={2025},
+url={https://openreview.net/forum?id=LedrHK34jZ}
+}
+```
 
 
 ## Prerequisites
